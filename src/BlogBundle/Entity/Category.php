@@ -2,6 +2,8 @@
 
 namespace BlogBundle\Entity;
 
+use BlogBundle\Utils\Blog as Blog;
+
 /**
  * Category
  */
@@ -213,5 +215,13 @@ class Category
     {
         return $this->posts;
     }
-}
 
+    /**
+     * @ORM\PrePersist
+     */
+    public function setSlugValue()
+    {
+        // Add your code here
+        $this->slug = Blog::slugify($this->getName());
+    }
+}

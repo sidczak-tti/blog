@@ -234,4 +234,3 @@ class Comment
         $this->published_at = new \DateTime();
     }
 }
-

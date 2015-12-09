@@ -35,3 +35,5 @@ BlogBundle\Entity\Category:
 #      targetEntity: Product
 #      mappedBy: categories
 #      #cascade: [ persist ]
+  lifecycleCallbacks:
+    prePersist: [ setSlugValue ]

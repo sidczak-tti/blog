@@ -25,3 +25,5 @@ BlogBundle\Entity\Tag:
       targetEntity: Post
       mappedBy: tags
       #cascade: [ persist ]
+  lifecycleCallbacks:
+    prePersist: [ setSlugValue ]

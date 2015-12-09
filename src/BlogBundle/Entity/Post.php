@@ -2,6 +2,8 @@
 
 namespace BlogBundle\Entity;
 
+use BlogBundle\Utils\Blog as Blog;
+
 /**
  * Post
  */
@@ -476,5 +478,13 @@ class Post
         // Add your code here
         $this->updated_at = new \DateTime();
     }
-}
 
+    /**
+     * @ORM\PrePersist
+     */
+    public function setSlugValue()
+    {
+        // Add your code here
+        $this->slug = Blog::slugify($this->getName());
+    }
+}

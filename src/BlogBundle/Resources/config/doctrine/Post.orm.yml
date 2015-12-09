@@ -72,5 +72,5 @@ BlogBundle\Entity\Post:
           tag_id:
             referencedColumnName: id
   lifecycleCallbacks:
-    prePersist: [ setPublishedAtValue ] 
+    prePersist: [ setPublishedAtValue, setSlugValue ] 
     preUpdate: [ setUpdatedAtValue ]
