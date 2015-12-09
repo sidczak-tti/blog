@@ -23,3 +23,7 @@ BlogBundle\Entity\User:
     roles:
       type: json_array
       nullable: true
+    created_at:
+      type: datetime
+  lifecycleCallbacks:
+    prePersist: [ setCreatedAtValue ]
