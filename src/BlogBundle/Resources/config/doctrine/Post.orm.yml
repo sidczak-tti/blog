@@ -1,7 +1,7 @@
 # src/BlogBundle/Resources/config/doctrine/Post.orm.yml
 BlogBundle\Entity\Post:
   type: entity
-  #repositoryClass: ShopBundle\Repository\PostRepository
+  #repositoryClass: BlogBundle\Repository\PostRepository
   table: post
   id:
     id:
@@ -11,31 +11,53 @@ BlogBundle\Entity\Post:
     title:
       type: string
       length: 255
+      unique: true
     slug:
       type: string
       length: 255
-    #content_head:
-    #  type: text
+      unique: true
+    excerpt:
+      type: text
+      nullable: true
     content:
       type: text
     author_email:
       type: string
       length: 255
-    is_published:
+    status_post:
+      type: string
+      length: 20
+      options:
+        #publish, expect, draft
+        default: publish
+    show_comment:
       type: boolean
-    #show_comment:
-    #  type: boolean
-    #enable_comment:
-    #  type: boolean
+      options:
+        default: 1
+    enable_comment:
+      type: boolean
+      options:
+        default: 1
+    views_comment:
+        type: integer
     published_at:
       type: datetime
     updated_at:
       type: datetime
+      nullable: true
   oneToMany:
     comments:
       targetEntity: Comment
       mappedBy: post
       cascade: [ remove ]
+  manyToOne:
+    category:
+      targetEntity: Category
+      inversedBy: posts
+      #cascade: [ persist ]
+      joinColumn:
+        name: category_id
+        referencedColumnName: id
   manyToMany:
     tags:
       targetEntity: Tag

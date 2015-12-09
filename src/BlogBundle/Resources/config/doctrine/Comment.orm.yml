@@ -1,22 +1,29 @@
 # src/BlogBundle/Resources/config/doctrine/Comment.orm.yml
 BlogBundle\Entity\Comment:
   type: entity
-  #repositoryClass: ShopBundle\Repository\CommentRepository
+  #repositoryClass: BlogBundle\Repository\CommentRepository
   table: comment
   id:
     id:
       type: integer
       generator: { strategy: AUTO }
   fields:
+    username:
+      type: string
+      length: 50
     author_email:
       type: string
-      length: 255
+      length: 50
+    website:
+      type: string
+      length: 50
       nullable: true
     content:
       type: text
-      nullable: true
-    is_published:
+    is_approved:
       type: boolean
+      options:
+        default: 1
     published_at:
       type: datetime
   manyToOne:

@@ -1,7 +1,7 @@
 # src/BlogBundle/Resources/config/doctrine/Tag.orm.yml
 BlogBundle\Entity\Tag:
   type: entity
-  #repositoryClass: ShopBundle\Repository\TagRepository
+  #repositoryClass: BlogBundle\Repository\TagRepository
   table: tag
   id:
     id:
@@ -11,9 +11,15 @@ BlogBundle\Entity\Tag:
     name:
       type: string
       length: 50
+      unique: true
+    slug:
+      type: string
+      length: 50
+      unique: true
     description:
       type: string
       length: 255
+      nullable: true
   manyToMany:
     posts:
       targetEntity: Post
