@@ -57,7 +57,7 @@ class Post
     /**
      * @var integer
      */
-    private $views_comment;
+    private $views_post;
 
     /**
      * @var \DateTime
@@ -296,27 +296,27 @@ class Post
     }
 
     /**
-     * Set viewsComment
+     * Set viewsPost
      *
-     * @param integer $viewsComment
+     * @param integer $viewsPost
      *
      * @return Post
      */
-    public function setViewsComment($viewsComment)
+    public function setViewsPost($viewsPost)
     {
-        $this->views_comment = $viewsComment;
+        $this->views_post = $viewsPost;
 
         return $this;
     }
 
     /**
-     * Get viewsComment
+     * Get viewsPost
      *
      * @return integer
      */
-    public function getViewsComment()
+    public function getViewsPost()
     {
-        return $this->views_comment;
+        return $this->views_post;
     }
 
     /**
@@ -485,6 +485,6 @@ class Post
     public function setSlugValue()
     {
         // Add your code here
-        $this->slug = Blog::slugify($this->getName());
+        $this->slug = Blog::slugify($this->getTitle());
     }
 }

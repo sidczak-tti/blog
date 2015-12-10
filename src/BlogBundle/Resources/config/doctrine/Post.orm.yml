@@ -38,8 +38,9 @@ BlogBundle\Entity\Post:
       type: boolean
       options:
         default: 1
-    views_comment:
+    views_post:
         type: integer
+        nullable: true
     published_at:
       type: datetime
     updated_at:
