@@ -13,33 +13,33 @@ class LoadPostData extends AbstractFixture implements OrderedFixtureInterface
     public function load(ObjectManager $em)
     {
         
-	    $post1 = new Post();
-            $post1->setCategory($em->merge($this->getReference('category-blog'))); //manyToOne
-	    $post1->setTitle('Learn the Bootstrap Grid in 15 Minutes');
-            $post1->setExcerpt($this->getPostExcerpt());
-            $post1->setContent($this->getPostContent());
-            //$post1->setExcerpt('Bootstrap is the most widely used frontend framework right now.');
-            //$post1->setContent('Bootstrap is the most widely used frontend framework right now. When it comes to building responsive websites and apps, it’s the first choice of both professionals and hobbyists because of how simple it is to work with. Anybody who knows HTML, CSS and a bit of JavaScript can learn Bootstrap in no time.');
-            $post1->setAuthorEmail('admin@symfony.com');
-            $post1->setViewsPost(10);
-            $post1->addTag($em->merge($this->getReference('tag-html'))); //manyToMany
-            $post1->addTag($em->merge($this->getReference('tag-css'))); //manyToMany
+	    $post_blog = new Post();
+            $post_blog->setCategory($em->merge($this->getReference('category-blog'))); //manyToOne
+	    $post_blog->setTitle('Learn the Bootstrap Grid in 15 Minutes');
+            $post_blog->setExcerpt($this->getPostExcerpt());
+            $post_blog->setContent($this->getPostContent());
+            //$post_blog->setExcerpt('Bootstrap is the most widely used frontend framework right now.');
+            //$post_blog->setContent('Bootstrap is the most widely used frontend framework right now. When it comes to building responsive websites and apps, it’s the first choice of both professionals and hobbyists because of how simple it is to work with. Anybody who knows HTML, CSS and a bit of JavaScript can learn Bootstrap in no time.');
+            $post_blog->setAuthorEmail('admin@symfony.com');
+            $post_blog->setViewsPost(10);
+            $post_blog->addTag($em->merge($this->getReference('tag-html'))); //manyToMany
+            $post_blog->addTag($em->merge($this->getReference('tag-css'))); //manyToMany
             
-            $post2 = new Post();
-            $post2->setCategory($em->merge($this->getReference('category-shop'))); //manyToOne
-	    $post2->setTitle('How to Control YouTube Video Player with jQuery');
-            $post2->setExcerpt($this->getPostExcerpt());
-            $post2->setContent($this->getPostContent());
-            //$post2->setExcerpt('YouTube has become the standard way for delivering high quality video on the web.');
-            //$post2->setContent('YouTube has become the standard way for delivering high quality video on the web. Sometimes, when you embed a video in your web application or landing page, you need a great deal of control on what and how is displayed. This is why we are going to show you how you can use the YouTube JavaScript Player API.');
-            $post2->setAuthorEmail('journalist@symfony.com');
-            $post2->setViewsPost(5);
-            $post2->addTag($em->merge($this->getReference('tag-html'))); //manyToMany
-            $post2->addTag($em->merge($this->getReference('tag-php'))); //manyToMany
-            $post2->addTag($em->merge($this->getReference('tag-ajax'))); //manyToMany
+            $post_shop = new Post();
+            $post_shop->setCategory($em->merge($this->getReference('category-shop'))); //manyToOne
+	    $post_shop->setTitle('How to Control YouTube Video Player with jQuery');
+            $post_shop->setExcerpt($this->getPostExcerpt());
+            $post_shop->setContent($this->getPostContent());
+            //$post_shop->setExcerpt('YouTube has become the standard way for delivering high quality video on the web.');
+            //$post_shop->setContent('YouTube has become the standard way for delivering high quality video on the web. Sometimes, when you embed a video in your web application or landing page, you need a great deal of control on what and how is displayed. This is why we are going to show you how you can use the YouTube JavaScript Player API.');
+            $post_shop->setAuthorEmail('journalist@symfony.com');
+            $post_shop->setViewsPost(5);
+            $post_shop->addTag($em->merge($this->getReference('tag-html'))); //manyToMany
+            $post_shop->addTag($em->merge($this->getReference('tag-php'))); //manyToMany
+            $post_shop->addTag($em->merge($this->getReference('tag-ajax'))); //manyToMany
             
-            $em->persist($post1);
-            $em->persist($post2);
+            $em->persist($post_blog);
+            $em->persist($post_shop);
             
             foreach (range(0, 14) as $i) {
                 $post = new Post();
@@ -57,12 +57,13 @@ class LoadPostData extends AbstractFixture implements OrderedFixtureInterface
                 }
                 
                 $em->persist($post);
+                $this->addReference('post-post'.$i, $post);
             }
 	 
 	    $em->flush();
             
-            $this->addReference('post-post1', $post1);
-            $this->addReference('post-post2', $post2);
+            $this->addReference('post-blog', $post_blog);
+            $this->addReference('post-shop', $post_shop);
     }
 
     public function getOrder()

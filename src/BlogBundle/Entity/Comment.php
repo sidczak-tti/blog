@@ -231,6 +231,9 @@ class Comment
     public function setPublishedAtValue()
     {
         // Add your code here
-        $this->published_at = new \DateTime();
+        if(!$this->getPublishedAt())
+        {
+            $this->published_at = new \DateTime();
+        }
     }
 }
