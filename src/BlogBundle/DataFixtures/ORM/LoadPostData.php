@@ -24,6 +24,7 @@ class LoadPostData extends AbstractFixture implements OrderedFixtureInterface
             $post_blog->setViewsPost(10);
             $post_blog->addTag($em->merge($this->getReference('tag-html'))); //manyToMany
             $post_blog->addTag($em->merge($this->getReference('tag-css'))); //manyToMany
+            $post_blog->setPublishedAt(new \DateTime('now - 1 days'));
             
             $post_shop = new Post();
             $post_shop->setCategory($em->merge($this->getReference('category-shop'))); //manyToOne
@@ -37,11 +38,12 @@ class LoadPostData extends AbstractFixture implements OrderedFixtureInterface
             $post_shop->addTag($em->merge($this->getReference('tag-html'))); //manyToMany
             $post_shop->addTag($em->merge($this->getReference('tag-php'))); //manyToMany
             $post_shop->addTag($em->merge($this->getReference('tag-ajax'))); //manyToMany
+            $post_shop->setPublishedAt(new \DateTime('now - 1 days'));
             
             $em->persist($post_blog);
             $em->persist($post_shop);
             
-            foreach (range(0, 14) as $i) {
+            foreach (range(0, 30) as $i) {
                 $post = new Post();
                 
                 $post->setCategory($this->getRandomCategory($em)); //manyToOne
@@ -50,7 +52,7 @@ class LoadPostData extends AbstractFixture implements OrderedFixtureInterface
                 $post->setContent($this->getPostContent());
                 $post->setAuthorEmail($this->getRandomAuthorEmail());
                 $post->setViewsPost(rand(0, 15));
-                $post->setPublishedAt(new \DateTime('now - '.$i.'days'));
+                $post->setPublishedAt(new \DateTime('now -'.(5 + $i).'days'));
                 
                 foreach($this->getRandomTag($em) as $tag){
                     $post->addTag($tag); //manyToMany
@@ -95,8 +97,13 @@ class LoadPostData extends AbstractFixture implements OrderedFixtureInterface
     private function getRandomTitle($i)
     {
         $titles = $this->getPhrases();
-
-        return $titles[$i];
+        
+        if (!isset($titles[$i])) {
+            return $titles[array_rand($titles)].' '.$i;
+        } else {
+            return $titles[$i];
+        }
+        //return $titles[$i];
         //return $titles[array_rand($titles)].' '.$i;
     }
     

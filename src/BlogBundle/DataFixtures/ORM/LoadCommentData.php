@@ -43,7 +43,7 @@ class LoadCommentData extends AbstractFixture implements OrderedFixtureInterface
                 $comment->setContent($this->getRandomContent());
                  
                 $comment->setIsApproved(rand(0,1) == 0 ? 0 : 1);
-                $comment->setPublishedAt(new \DateTime('now + '.rand(1,5).'days'));
+                $comment->setPublishedAt(new \DateTime('now - '.rand(1,4).'days'));
                 
                 $em->persist($comment);
             }
