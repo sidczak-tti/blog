@@ -73,6 +73,11 @@ class Post
      * @var \Doctrine\Common\Collections\Collection
      */
     private $comments;
+    
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $images;
 
     /**
      * @var \BlogBundle\Entity\Category
@@ -90,6 +95,7 @@ class Post
     public function __construct()
     {
         $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->images = new \Doctrine\Common\Collections\ArrayCollection();
         $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -399,6 +405,40 @@ class Post
     public function getComments()
     {
         return $this->comments;
+    }
+    
+    /**
+     * Add image
+     *
+     * @param \BlogBundle\Entity\Image $image
+     *
+     * @return Post
+     */
+    public function addImage(\BlogBundle\Entity\Image $image)
+    {
+        $this->images[] = $image;
+
+        return $this;
+    }
+
+    /**
+     * Remove image
+     *
+     * @param \BlogBundle\Entity\Image $image
+     */
+    public function removeImage(\BlogBundle\Entity\Image $image)
+    {
+        $this->images->removeElement($image);
+    }
+
+    /**
+     * Get images
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getImages()
+    {
+        return $this->images;
     }
 
     /**

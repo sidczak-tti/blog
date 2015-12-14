@@ -33,7 +33,7 @@ class LoadCommentData extends AbstractFixture implements OrderedFixtureInterface
             foreach (range(0, 60) as $i) {
 
                 $comment = new Comment();
-                $comment->setPost($em->merge($this->getReference('post-post'.rand(0, 14)))); //mamy 15 postów dlatego rand(0, 14)
+                $comment->setPost($em->merge($this->getReference('post-post'.rand(0, 30)))); //mamy 30 postów dlatego rand(0, 30)
                 
                 $surfer = $this->getRandomSurfer();
                 $comment->setUsername($surfer['username']);

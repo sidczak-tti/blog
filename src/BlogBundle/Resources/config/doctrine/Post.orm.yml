@@ -47,6 +47,10 @@ BlogBundle\Entity\Post:
       type: datetime
       nullable: true
   oneToMany:
+    images:
+      targetEntity: Image
+      mappedBy: post
+      cascade: [ remove ]
     comments:
       targetEntity: Comment
       mappedBy: post
