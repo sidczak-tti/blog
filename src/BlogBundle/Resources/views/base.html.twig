@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="robots" content="noindex,nofollow" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        
+        {% block stylesheets %}{% endblock %}
+        
+        <link rel="icon" type="image/x-icon" href="{{ asset('xfavicon.ico') }}" />
+    </head>
+    <body>
+        {% block navigation %}
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="container">
+
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse-bs">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="{{ path('blog_homepage') }}">Blog</a>
+                </div>
+                <div class="collapse navbar-collapse navbar-collapse-bs">
+                    <ul class="nav navbar-nav">
+                        <li><a href="{{ path('blog_homepage') }}">Start</a></li>
+                        <li><a href="{{ path('blog_homepage') }}">Post</a></li>
+                        {#
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown">Produkt <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#">Blog</a></li>
+                                <li><a href="#">Shop</a></li>
+                            </ul>
+                        </li>
+                        #}
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#">Zaloguj się</a></li>
+                    </ul>
+                </div>
+
+            </div>
+        </nav>
+        {% endblock %}
+        
+        {% block body %}{% endblock %}
+        
+        {% block footer %}
+        <div class="footer">
+            <div class="container">
+                <p class="text-muted">Place sticky footer content here.</p>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="container">
+                <p class="pull-right"><a href="#">Back to top</a></p>
+                <p>&copy; 2015 Blog &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a> &middot; <a href="#">Dashboard</a></p>
+            </div>
+        </div>
+        {% endblock %}
+        
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>
