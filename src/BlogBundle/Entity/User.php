@@ -176,3 +176,4 @@ class User
         $this->created_at = new \DateTime();
     }
 }
+

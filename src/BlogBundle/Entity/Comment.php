@@ -35,7 +35,7 @@ class Comment
     /**
      * @var boolean
      */
-    private $is_approved = 1;
+    private $is_approved = true;
 
     /**
      * @var \DateTime
@@ -237,3 +237,4 @@ class Comment
         }
     }
 }
+

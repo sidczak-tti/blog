@@ -37,7 +37,7 @@ class Category
     /**
      * @var boolean
      */
-    private $is_active = 1;
+    private $is_active = true;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -215,7 +215,6 @@ class Category
     {
         return $this->posts;
     }
-
     /**
      * @ORM\PrePersist
      */
@@ -225,3 +224,4 @@ class Category
         $this->slug = Blog::slugify($this->getName());
     }
 }
+

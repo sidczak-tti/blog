@@ -157,7 +157,6 @@ class Tag
     {
         return $this->posts;
     }
-
     /**
      * @ORM\PrePersist
      */
@@ -167,3 +166,4 @@ class Tag
         $this->slug = Blog::slugify($this->getName());
     }
 }
+

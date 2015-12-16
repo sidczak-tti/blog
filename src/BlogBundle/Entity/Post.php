@@ -47,12 +47,12 @@ class Post
     /**
      * @var boolean
      */
-    private $show_comment = 1;
+    private $show_comment = true;
 
     /**
      * @var boolean
      */
-    private $enable_comment = 1;
+    private $enable_comment = true;
 
     /**
      * @var integer
@@ -72,12 +72,12 @@ class Post
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    private $comments;
-    
+    private $images;
+
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    private $images;
+    private $comments;
 
     /**
      * @var \BlogBundle\Entity\Category
@@ -94,8 +94,8 @@ class Post
      */
     public function __construct()
     {
-        $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
         $this->images = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
         $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -374,40 +374,6 @@ class Post
     }
 
     /**
-     * Add comment
-     *
-     * @param \BlogBundle\Entity\Comment $comment
-     *
-     * @return Post
-     */
-    public function addComment(\BlogBundle\Entity\Comment $comment)
-    {
-        $this->comments[] = $comment;
-
-        return $this;
-    }
-
-    /**
-     * Remove comment
-     *
-     * @param \BlogBundle\Entity\Comment $comment
-     */
-    public function removeComment(\BlogBundle\Entity\Comment $comment)
-    {
-        $this->comments->removeElement($comment);
-    }
-
-    /**
-     * Get comments
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getComments()
-    {
-        return $this->comments;
-    }
-    
-    /**
      * Add image
      *
      * @param \BlogBundle\Entity\Image $image
@@ -439,6 +405,40 @@ class Post
     public function getImages()
     {
         return $this->images;
+    }
+
+    /**
+     * Add comment
+     *
+     * @param \BlogBundle\Entity\Comment $comment
+     *
+     * @return Post
+     */
+    public function addComment(\BlogBundle\Entity\Comment $comment)
+    {
+        $this->comments[] = $comment;
+
+        return $this;
+    }
+
+    /**
+     * Remove comment
+     *
+     * @param \BlogBundle\Entity\Comment $comment
+     */
+    public function removeComment(\BlogBundle\Entity\Comment $comment)
+    {
+        $this->comments->removeElement($comment);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getComments()
+    {
+        return $this->comments;
     }
 
     /**
@@ -511,15 +511,6 @@ class Post
     }
 
     /**
-     * @ORM\PreUpdate
-     */
-    public function setUpdatedAtValue()
-    {
-        // Add your code here
-        $this->updated_at = new \DateTime();
-    }
-
-    /**
      * @ORM\PrePersist
      */
     public function setSlugValue()
@@ -527,4 +518,14 @@ class Post
         // Add your code here
         $this->slug = Blog::slugify($this->getTitle());
     }
+
+    /**
+     * @ORM\PreUpdate
+     */
+    public function setUpdatedAtValue()
+    {
+        // Add your code here
+        $this->updated_at = new \DateTime();
+    }
 }
+
