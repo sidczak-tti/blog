@@ -23,7 +23,7 @@ BlogBundle\Entity\Comment:
     is_approved:
       type: boolean
       options:
-        default: 1
+        default: true
     published_at:
       type: datetime
   manyToOne:

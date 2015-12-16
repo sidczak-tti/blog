@@ -33,11 +33,11 @@ BlogBundle\Entity\Post:
     show_comment:
       type: boolean
       options:
-        default: 1
+        default: true
     enable_comment:
       type: boolean
       options:
-        default: 1
+        default: true
     views_post:
         type: integer
         nullable: true

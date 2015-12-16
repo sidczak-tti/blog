@@ -24,7 +24,7 @@ BlogBundle\Entity\Category:
     is_active:
       type: boolean
       options:
-        default: 1
+        default: true
   oneToMany:
     posts:
       targetEntity: Post
