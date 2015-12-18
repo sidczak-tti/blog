@@ -38,52 +38,7 @@
         {% endfor %} 
         </div>
         <div class="col-md-4">
-            
-            <ul class="nav nav-tabs nav-justified" style="margin-bottom: 15px">
-                <li class="active">
-                    <a href="#categories" data-toggle="tab"><i class="fa fa-share-alt"></i> Categories</a>
-                </li>
-                <li>
-                    <a href="#tags" data-toggle="tab"><i class="fa fa-tags"></i> Tags</a>
-                </li>
-                <li>
-                    <a href="#archives" data-toggle="tab"><i class="fa fa-folder"></i> Archives</a>
-                </li>
-            </ul>
-            
-            <!-- Tab panes -->
-            <div class="tab-content">
-                <div class="tab-pane fade in active" id="categories">
-                    <div class="list-group">
-                        <a class="list-group-item" href="#">Blog</a>
-                        <a class="list-group-item" href="#">Shop</a>
-                        <a class="list-group-item" href="#">No</a>
-                    </div>
-                </div>
-                <div class="tab-pane fade" id="tags">
-                    <p>Tags</p>
-                </div>
-                <div class="tab-pane fade" id="archives">
-                    <p>Archives</p>
-                </div>
-            </div>
-            
-            <div class="page-header">
-                <h4>{{'Categories'|upper}}</h4>
-            </div>
-            <div class="page-header">
-                <h4>{{'Tags'|upper}}</h4>
-            </div>
-            <div class="page-header">
-                <h4>{{'Archives'|upper}}</h4>
-            </div>
-            <div class="page-header">
-                <h4>{{'Recent Posts'|upper}}</h4>
-            </div>
-            <div class="page-header">
-                <h4>{{'Calendar'|upper}}</h4>
-            </div>
-            
+            {{ include('BlogBundle:Post:_sidebar.html.twig') }}
         </div>
     </div>
 </div>
