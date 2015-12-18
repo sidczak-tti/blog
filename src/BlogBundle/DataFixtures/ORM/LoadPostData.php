@@ -15,7 +15,7 @@ class LoadPostData extends AbstractFixture implements OrderedFixtureInterface
         
 	    $post_blog = new Post();
             $post_blog->setCategory($em->merge($this->getReference('category-blog'))); //manyToOne
-	    $post_blog->setTitle('Learn the Bootstrap Grid in 15 Minutes');
+	    $post_blog->setTitle('Learn the Bootstrap Grid in <b>15 Minutes</b>');
             $post_blog->setExcerpt($this->getPostExcerpt());
             $post_blog->setContent($this->getPostContent());
             //$post_blog->setExcerpt('Bootstrap is the most widely used frontend framework right now.');
@@ -28,7 +28,7 @@ class LoadPostData extends AbstractFixture implements OrderedFixtureInterface
             
             $post_shop = new Post();
             $post_shop->setCategory($em->merge($this->getReference('category-shop'))); //manyToOne
-	    $post_shop->setTitle('How to Control YouTube Video Player with jQuery');
+	    $post_shop->setTitle('How to Control <b>YouTube Video Player</b> with jQuery');
             $post_shop->setExcerpt($this->getPostExcerpt());
             $post_shop->setContent($this->getPostContent());
             //$post_shop->setExcerpt('YouTube has become the standard way for delivering high quality video on the web.');
