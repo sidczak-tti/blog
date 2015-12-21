@@ -3,8 +3,10 @@ post:
     defaults: { _controller: "BlogBundle:Post:index" }
 
 post_show:
-    path:     /{id}/show
+    path:     /{id}/{title}/show
     defaults: { _controller: "BlogBundle:Post:show" }
+    requirements:
+        id:  \d+
 
 post_new:
     path:     /new

@@ -528,5 +528,10 @@ class Post
         // Add your code here
         $this->updated_at = new \DateTime();
     }
+    
+    public function getTitleSlug()
+    {
+        return Blog::slugify($this->getTitle());
+    }
 }
 
