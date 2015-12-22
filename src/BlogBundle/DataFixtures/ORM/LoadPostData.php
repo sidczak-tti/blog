@@ -122,7 +122,7 @@ class LoadPostData extends AbstractFixture implements OrderedFixtureInterface
     private function getRandomCategory($em)
     {
         $category = array(
-            $em->merge($this->getReference('category-no_category')),
+            $em->merge($this->getReference('category-forum')),
             $em->merge($this->getReference('category-blog')),
             $em->merge($this->getReference('category-shop')),
         );

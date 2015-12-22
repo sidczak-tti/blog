@@ -12,11 +12,11 @@ class LoadCategoryData extends AbstractFixture implements OrderedFixtureInterfac
 {
     public function load(ObjectManager $em)
     {
-	    $no_category = new Category();
-	    $no_category->setName('No category');
-	    $no_category->setDescription('Desktops No category');
-	    $no_category->setImage('no-category.jpg');
-	    $no_category->setIsActive(1);
+	    $forum = new Category();
+	    $forum->setName('Forum');
+	    $forum->setDescription('Forum Description');
+	    $forum->setImage('forum.jpg');
+	    $forum->setIsActive(1);
 	    
 	    $blog = new Category();
 	    $blog->setName('Blog');
@@ -30,13 +30,13 @@ class LoadCategoryData extends AbstractFixture implements OrderedFixtureInterfac
 	    $shop->setImage('shop.jpg');
 	    $shop->setIsActive(1);
 	    	 
-	    $em->persist($no_category);
+	    $em->persist($forum);
             $em->persist($blog);
 	    $em->persist($shop);
 	 
 	    $em->flush();
             
-            $this->addReference('category-no_category', $no_category);
+            $this->addReference('category-forum', $forum);
 	    $this->addReference('category-blog', $blog);
 	    $this->addReference('category-shop', $shop);
     }
