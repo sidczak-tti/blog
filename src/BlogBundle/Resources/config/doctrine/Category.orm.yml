@@ -1,7 +1,7 @@
 # src/BlogBundle/Resources/config/doctrine/Category.orm.yml
 BlogBundle\Entity\Category:
   type: entity
-  #repositoryClass: BlogBundle\Repository\CategoryRepository
+  repositoryClass: BlogBundle\Repository\CategoryRepository
   table: category
   id:
     id:

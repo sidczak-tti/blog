@@ -534,4 +534,3 @@ class Post
         return Blog::slugify($this->getTitle());
     }
 }
-

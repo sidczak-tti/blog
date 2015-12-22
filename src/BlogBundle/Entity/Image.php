@@ -81,4 +81,3 @@ class Image
         return $this->post;
     }
 }
-

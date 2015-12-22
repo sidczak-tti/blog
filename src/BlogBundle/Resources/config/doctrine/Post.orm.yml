@@ -1,7 +1,7 @@
 # src/BlogBundle/Resources/config/doctrine/Post.orm.yml
 BlogBundle\Entity\Post:
   type: entity
-  #repositoryClass: BlogBundle\Repository\PostRepository
+  repositoryClass: BlogBundle\Repository\PostRepository
   table: post
   id:
     id:

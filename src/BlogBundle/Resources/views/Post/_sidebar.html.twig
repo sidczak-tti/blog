@@ -9,14 +9,15 @@
             <a href="#archives" data-toggle="tab"><i class="fa fa-folder"></i> Archives</a>
         </li>
     </ul>
-
+        
     <!-- Tab panes -->
     <div class="tab-content">
         <div class="tab-pane fade in active" id="categories">
             <div class="list-group">
-                <a class="list-group-item" href="#">Blog</a>
-                <a class="list-group-item" href="#">Shop</a>
-                <a class="list-group-item" href="#">No</a>
+                <a class="list-group-item" href="{{ path('post') }}">All</a>
+                {% for category in categories %}
+                <a class="list-group-item" href="{{ path('blog_category', { 'slug': category.slug }) }}"> {{ category.name }}</a>
+                {% endfor %}
             </div>
         </div>
         <div class="tab-pane fade" id="tags">

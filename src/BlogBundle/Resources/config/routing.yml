@@ -5,3 +5,7 @@ blog_post:
 blog_homepage:
     path:     /
     defaults: { _controller: BlogBundle:Start:index }
+    
+blog_category:
+    path:     /category/{slug}
+    defaults: { _controller: BlogBundle:Category:show }

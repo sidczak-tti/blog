@@ -24,9 +24,14 @@ class PostController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('BlogBundle:Post')->findAll();
+        
+        //$query = $em->createQuery('SELECT c FROM BlogBundle:Category c LEFT JOIN c.posts p WHERE p.category = c.id');
+        //$categories = $query->getResult();
+        $categories = $em->getRepository('BlogBundle:Category')->getWithPosts();
 
         return $this->render('BlogBundle:Post:index.html.twig', array(
             'entities' => $entities,
+            'categories' => $categories,
         ));
     }
     /**
@@ -102,10 +107,13 @@ class PostController extends Controller
         }
 
         $deleteForm = $this->createDeleteForm($id);
+        
+        $categories = $em->getRepository('BlogBundle:Category')->getWithPosts();
 
         return $this->render('BlogBundle:Post:show.html.twig', array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
+            'categories' => $categories,
         ));
     }
 
