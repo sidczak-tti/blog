@@ -13,19 +13,19 @@ class LoadCategoryData extends AbstractFixture implements OrderedFixtureInterfac
     public function load(ObjectManager $em)
     {
 	    $forum = new Category();
-	    $forum->setName('Forum');
+	    $forum->setName('Forum tutorial');
 	    $forum->setDescription('Forum Description');
 	    $forum->setImage('forum.jpg');
 	    $forum->setIsActive(1);
 	    
 	    $blog = new Category();
-	    $blog->setName('Blog');
+	    $blog->setName('Blog tutorial');
 	    $blog->setDescription('Blog Description');
 	    $blog->setImage('blog.jpg');
 	    $blog->setIsActive(1);
 	    
 	    $shop = new Category();
-	    $shop->setName('Shop');
+	    $shop->setName('Shop tutorial');
 	    $shop->setDescription('Shop Description');
 	    $shop->setImage('shop.jpg');
 	    $shop->setIsActive(1);

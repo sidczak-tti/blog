@@ -8,8 +8,9 @@
 
             <ul class="breadcrumb">
                 <li><a href="{{ path('blog_homepage') }}">Start</a></li>
-                <li><a href="{{ path('post') }}">Post</a></li>
-                <li class="active">Category</li>
+                <li><a href="{{ path('post') }}">Blog</a></li>
+                <li><a href="{{ path('blog_category', { 'slug': entity.category.slug }) }}">{{ entity.category }}</a></li>
+                <li class="active">{{ entity.title|title|raw }}</li>
             </ul>
             <div class="page-header">
                 <h2>{{ entity.title|title|raw }}</h2>
@@ -20,7 +21,8 @@
                 </p>
                 <p>
                     <i class="fa fa-calendar"></i> <a href="#">{% if entity.publishedat %}{{ entity.publishedat|date('l, F j, Y') }}{% endif %}</a> | 
-                    <i class="fa fa-user"></i> <a href="#">{{ entity.authoremail }}</a>
+                    <i class="fa fa-user"></i> <a href="#">{{ entity.authoremail }}</a> | 
+                    <i class="fa fa-share-alt"></i> <a href="{{ path('blog_category', { 'slug': entity.category.slug }) }}">{{ entity.category }}</a>
                 </p>
             </div>
     	</div>
