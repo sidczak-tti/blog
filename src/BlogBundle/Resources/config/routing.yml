@@ -9,3 +9,7 @@ blog_homepage:
 blog_category:
     path:     /category/{slug}
     defaults: { _controller: BlogBundle:Category:show }
+    
+blog_tag:
+    path:     /tag/{slug}
+    defaults: { _controller: BlogBundle:Tag:show }

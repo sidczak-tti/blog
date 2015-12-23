@@ -21,7 +21,11 @@
             </div>
         </div>
         <div class="tab-pane fade" id="tags">
-            <p>Tags</p>
+            <div class="list-group">
+                {% for tag in tags %}
+                <a class="list-group-item" href="{{ path('blog_tag', { 'slug': tag.slug }) }}">{{ tag.name }}</a>
+                {% endfor %}
+            </div>
         </div>
         <div class="tab-pane fade" id="archives">
             <p>Archives</p>

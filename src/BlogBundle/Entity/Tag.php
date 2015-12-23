@@ -170,4 +170,16 @@ class Tag
     {
         return $this->name;
     }
+    
+    private $active_posts;
+    
+    public function setActivePosts($activePosts)
+    {
+    	$this->active_posts = $activePosts;
+    }
+ 
+    public function getActivePosts()
+    {
+    	return $this->active_posts;
+    }
 }

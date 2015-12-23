@@ -1,7 +1,7 @@
 # src/BlogBundle/Resources/config/doctrine/Tag.orm.yml
 BlogBundle\Entity\Tag:
   type: entity
-  #repositoryClass: BlogBundle\Repository\TagRepository
+  repositoryClass: BlogBundle\Repository\TagRepository
   table: tag
   id:
     id:

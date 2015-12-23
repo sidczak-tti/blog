@@ -27,11 +27,14 @@ class PostController extends Controller
         
         //$query = $em->createQuery('SELECT c FROM BlogBundle:Category c LEFT JOIN c.posts p WHERE p.category = c.id');
         //$categories = $query->getResult();
-        $categories = $em->getRepository('BlogBundle:Category')->getWithPosts();
-
+        $categories = $em->getRepository('BlogBundle:Category')->getWithPosts(); //pobranie wszystkich kategorii, które mają posty
+        
+        $tags = $em->getRepository('BlogBundle:Tag')->getWithPosts(); //pobranie wszystkich tagów, które mają posty
+        
         return $this->render('BlogBundle:Post:index.html.twig', array(
             'entities' => $entities,
             'categories' => $categories,
+            'tags' => $tags,
         ));
     }
     /**
@@ -109,11 +112,14 @@ class PostController extends Controller
         $deleteForm = $this->createDeleteForm($id);
         
         $categories = $em->getRepository('BlogBundle:Category')->getWithPosts();
+        
+        $tags = $em->getRepository('BlogBundle:Tag')->getWithPosts();
 
         return $this->render('BlogBundle:Post:show.html.twig', array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
-            'categories' => $categories,
+            'categories'  => $categories,
+            'tags'        =>$tags,
         ));
     }
 

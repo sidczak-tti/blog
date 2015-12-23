@@ -24,4 +24,20 @@ class PostRepository extends \Doctrine\ORM\EntityRepository
 
         return $query->getResult();
     }
+    
+    public function getPostsFromTag($tag_id = null)
+    {
+        $qb = $this->createQueryBuilder('p');
+
+        if($tag_id)
+        {
+            $qb->innerJoin('p.tags', 'pt')
+              ->where('pt.id = :tag_id')
+              ->setParameter('tag_id', $tag_id);
+        }
+
+        $query = $qb->getQuery();
+
+        return $query->getResult();
+    }
 }

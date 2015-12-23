@@ -5,34 +5,31 @@ namespace BlogBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-use BlogBundle\Entity\Category;
+use BlogBundle\Entity\Tag;
 
-class CategoryController extends Controller
+class TagController extends Controller
 {
 
     public function showAction($slug)
     {
         $em = $this->getDoctrine()->getManager();
  
-        $category = $em->getRepository('BlogBundle:Category')->findOneBySlug($slug);
+        $tag = $em->getRepository('BlogBundle:Tag')->findOneBySlug($slug);
         
-        if (!$category) {
-            throw $this->createNotFoundException('Unable to find Category entity.');
+        if (!$tag) {
+            throw $this->createNotFoundException('Unable to find Tag entity.');
         }
         
-        $category->setActivePosts($em->getRepository('BlogBundle:Post')->getPostsFromCategory($category->getId()));
+        $tag->setActivePosts($em->getRepository('BlogBundle:Post')->getPostsFromTag($tag->getId()));
         
         $categories = $em->getRepository('BlogBundle:Category')->getWithPosts(); //pobranie wszystkich kategorii, które mają posty
         
         $tags = $em->getRepository('BlogBundle:Tag')->getWithPosts(); //pobranie wszystkich tagów, które mają posty
         
-        return $this->render('BlogBundle:Category:show.html.twig', array(
-            'category' => $category,
+        return $this->render('BlogBundle:Tag:show.html.twig', array(
+            'tag' => $tag,
             'categories' => $categories,
             'tags' => $tags,
         ));
     }
 }
-
-
-
