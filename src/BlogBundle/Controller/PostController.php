@@ -293,4 +293,28 @@ class PostController extends Controller
             'recent_posts' => $recent_posts,
         ));
     }
+    
+    public function authorAction($email)
+    {
+        $em = $this->getDoctrine()->getManager();
+        
+        $entities = $em->getRepository('BlogBundle:Post')->findBy(array('author_email' => $email));
+        
+        $categories = $em->getRepository('BlogBundle:Category')->getWithPosts();
+        
+        $tags = $em->getRepository('BlogBundle:Tag')->getWithPosts();
+        
+        $archives = $em->getRepository('BlogBundle:Post')->getArchives();
+        
+        $recent_posts = $em->getRepository('BlogBundle:Post')->findBy(array(), array(), 10);
+        
+        return $this->render('BlogBundle:Post:author.html.twig', array(
+            'author' => $email,
+            'entities' => $entities,
+            'categories' => $categories,
+            'tags' => $tags,
+            'archives' => $archives,
+            'recent_posts' => $recent_posts,
+        ));
+    }
 }

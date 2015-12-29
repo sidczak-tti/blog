@@ -21,7 +21,7 @@
                 </p>
                 <p>
                     <i class="fa fa-calendar"></i> {% if entity.publishedat %}{{ entity.publishedat|date('l, F j, Y') }}{% endif %} | 
-                    <i class="fa fa-user"></i> <a href="#">{{ entity.authoremail }}</a> | 
+                    <i class="fa fa-user"></i> <a href="{{ path('blog_author', { 'email': entity.authoremail }) }}">{{ entity.authoremail }}</a> | 
                     <i class="fa fa-share-alt"></i> <a href="{{ path('blog_category', { 'slug': entity.category.slug }) }}">{{ entity.category }}</a>
                 </p>
             </div>
