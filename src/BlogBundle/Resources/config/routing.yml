@@ -13,3 +13,7 @@ blog_category:
 blog_tag:
     path:     /tag/{slug}
     defaults: { _controller: BlogBundle:Tag:show }
+    
+blog_archive:
+    path:     /archive/{year}/{month}
+    defaults: { _controller: "BlogBundle:Post:archive" }

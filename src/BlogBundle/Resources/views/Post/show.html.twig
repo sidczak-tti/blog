@@ -20,7 +20,7 @@
                     <a class="btn btn-sm btn-default" href="https://plus.google.com/share?url={{ app.request.getUri }}" target="_blank" title="Post this to Google+"><i class="fa fa-fw fa-google-plus"></i> Share</a>
                 </p>
                 <p>
-                    <i class="fa fa-calendar"></i> <a href="#">{% if entity.publishedat %}{{ entity.publishedat|date('l, F j, Y') }}{% endif %}</a> | 
+                    <i class="fa fa-calendar"></i> {% if entity.publishedat %}{{ entity.publishedat|date('l, F j, Y') }}{% endif %} | 
                     <i class="fa fa-user"></i> <a href="#">{{ entity.authoremail }}</a> | 
                     <i class="fa fa-share-alt"></i> <a href="{{ path('blog_category', { 'slug': entity.category.slug }) }}">{{ entity.category }}</a>
                 </p>
@@ -44,7 +44,7 @@
 
         </div>
         <div class="col-md-4">
-            {{ include('BlogBundle:Post:_sidebar.html.twig', { 'categories': categories, 'tags': tags }) }}
+            {{ include('BlogBundle:Post:_sidebar.html.twig', { 'categories': categories, 'tags': tags, 'archives': archives }) }}
         </div>
     </div>
 </div>

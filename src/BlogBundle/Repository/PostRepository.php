@@ -40,4 +40,40 @@ class PostRepository extends \Doctrine\ORM\EntityRepository
 
         return $query->getResult();
     }
+    
+    public function getArchives()
+    {
+        //SELECT year(published_at),month(published_at),count(published_at) FROM `post` group by year(published_at), month(published_at)
+        
+        $qb = $this->createQueryBuilder('p')
+            ->select('p.published_at as publishedat, YEAR(p.published_at) as year, MONTH(p.published_at) as month, COUNT(p.published_at) as post')
+            ->groupBy('year')
+            ->groupBy('month')
+            ->orderBy('p.published_at', 'DESC');
+        
+        $query = $qb->getQuery();
+        
+        return $query->getResult();
+    }
+    
+    public function getPostFromArchives($year = null, $month = null)
+    {
+        $qb = $this->createQueryBuilder('p');
+        
+        if($year)
+        {
+            $qb->andWhere('YEAR(p.published_at) = :year')
+              ->setParameter('year', $year);
+        }
+        
+        if($month)
+        {
+            $qb->andWhere('MONTH(p.published_at) = :month')
+              ->setParameter('month', $month);
+        }
+        
+        $query = $qb->getQuery();
+        
+        return $query->getResult();
+    }
 }

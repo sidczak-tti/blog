@@ -22,7 +22,7 @@ class PostController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-
+        
         $entities = $em->getRepository('BlogBundle:Post')->findAll();
         
         //$query = $em->createQuery('SELECT c FROM BlogBundle:Category c LEFT JOIN c.posts p WHERE p.category = c.id');
@@ -31,10 +31,16 @@ class PostController extends Controller
         
         $tags = $em->getRepository('BlogBundle:Tag')->getWithPosts(); //pobranie wszystkich tagów, które mają posty
         
+        $archives = $em->getRepository('BlogBundle:Post')->getArchives();
+        
+        $recent_posts = $em->getRepository('BlogBundle:Post')->findBy(array(), array(), 10);
+        
         return $this->render('BlogBundle:Post:index.html.twig', array(
             'entities' => $entities,
             'categories' => $categories,
             'tags' => $tags,
+            'archives' => $archives,
+            'recent_posts' => $recent_posts,
         ));
     }
     /**
@@ -114,12 +120,18 @@ class PostController extends Controller
         $categories = $em->getRepository('BlogBundle:Category')->getWithPosts();
         
         $tags = $em->getRepository('BlogBundle:Tag')->getWithPosts();
+        
+        $archives = $em->getRepository('BlogBundle:Post')->getArchives();
+        
+        $recent_posts = $em->getRepository('BlogBundle:Post')->findBy(array(), array(), 10);
 
         return $this->render('BlogBundle:Post:show.html.twig', array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
             'categories'  => $categories,
             'tags'        =>$tags,
+            'archives' => $archives,
+            'recent_posts' => $recent_posts,
         ));
     }
 
@@ -234,5 +246,31 @@ class PostController extends Controller
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()
         ;
+    }
+    
+    public function archiveAction($year, $month)
+    {
+        $em = $this->getDoctrine()->getManager();
+        
+        $entities = $em->getRepository('BlogBundle:Post')->getPostFromArchives($year, $month);
+        
+        $archive = date("F Y", mktime($month, $year));
+
+        $categories = $em->getRepository('BlogBundle:Category')->getWithPosts();
+        
+        $tags = $em->getRepository('BlogBundle:Tag')->getWithPosts();
+        
+        $archives = $em->getRepository('BlogBundle:Post')->getArchives();
+        
+        $recent_posts = $em->getRepository('BlogBundle:Post')->findBy(array(), array(), 10);
+        
+        return $this->render('BlogBundle:Post:archive.html.twig', array(
+            'entities' => $entities, 
+            'archive' => $archive,
+            'categories' => $categories,
+            'tags' => $tags,
+            'archives' => $archives,
+            'recent_posts' => $recent_posts,
+        ));
     }
 }

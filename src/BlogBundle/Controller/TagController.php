@@ -26,10 +26,16 @@ class TagController extends Controller
         
         $tags = $em->getRepository('BlogBundle:Tag')->getWithPosts(); //pobranie wszystkich tagów, które mają posty
         
+        $archives = $em->getRepository('BlogBundle:Post')->getArchives();
+        
+        $recent_posts = $em->getRepository('BlogBundle:Post')->findBy(array(), array(), 10);
+        
         return $this->render('BlogBundle:Tag:show.html.twig', array(
             'tag' => $tag,
             'categories' => $categories,
             'tags' => $tags,
+            'archives' => $archives,
+            'recent_posts' => $recent_posts,
         ));
     }
 }
