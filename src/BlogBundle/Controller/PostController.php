@@ -273,4 +273,24 @@ class PostController extends Controller
             'recent_posts' => $recent_posts,
         ));
     }
+    
+    public function archivesPageAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        
+        $categories = $em->getRepository('BlogBundle:Category')->getWithPosts();
+        
+        $tags = $em->getRepository('BlogBundle:Tag')->getWithPosts();
+        
+        $archives = $em->getRepository('BlogBundle:Post')->getArchives();
+        
+        $recent_posts = $em->getRepository('BlogBundle:Post')->findBy(array(), array(), 10);
+        
+        return $this->render('BlogBundle:Archive:index.html.twig', array(
+            'categories' => $categories,
+            'tags' => $tags,
+            'archives' => $archives,
+            'recent_posts' => $recent_posts,
+        ));
+    }
 }
