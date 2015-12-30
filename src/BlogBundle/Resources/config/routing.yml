@@ -23,5 +23,5 @@ blog_archives_page:
     defaults: { _controller: "BlogBundle:Post:archivesPage" }
     
 blog_author:
-    path:     /author/{email}
-    defaults: { _controller: "BlogBundle:Post:author" }
+    path:     /author/{email}/{page}
+    defaults: { _controller: "BlogBundle:Post:author", page: 1 }
