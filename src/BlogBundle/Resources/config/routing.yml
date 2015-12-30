@@ -7,12 +7,12 @@ blog_homepage:
     defaults: { _controller: BlogBundle:Start:index }
     
 blog_category:
-    path:     /category/{slug}
-    defaults: { _controller: BlogBundle:Category:show }
+    path:     /category/{slug}/{page}
+    defaults: { _controller: BlogBundle:Category:show, page: 1 }
     
 blog_tag:
-    path:     /tag/{slug}
-    defaults: { _controller: BlogBundle:Tag:show }
+    path:     /tag/{slug}/{page}
+    defaults: { _controller: BlogBundle:Tag:show, page: 1 }
     
 blog_archive:
     path:     /archive/{year}/{month}

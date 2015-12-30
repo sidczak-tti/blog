@@ -19,12 +19,30 @@ class PostController extends Controller
      * Lists all Post entities.
      *
      */
-    public function indexAction()
+    public function indexAction($page)
     {
         $em = $this->getDoctrine()->getManager();
         
-        $entities = $em->getRepository('BlogBundle:Post')->findAll();
+        //$entities = $em->getRepository('BlogBundle:Post')->findAll();
         
+        $posts = $em->getRepository('BlogBundle:Post')->findAll();
+
+        $total_posts = count($posts);
+        $posts_per_page = 5;
+        $last_page = ceil($total_posts / $posts_per_page);
+        $previous_page = $page > 1 ? $page - 1 : 1;
+        $next_page = $page < $last_page ? $page + 1 : $last_page;
+        
+        $repository = $this->getDoctrine()
+            ->getRepository('BlogBundle:Post');
+
+        $query = $repository->createQueryBuilder('p')
+            ->setFirstResult(($page - 1) * $posts_per_page)
+            ->setMaxResults($posts_per_page)
+            ->getQuery();
+
+        $entities = $query->getResult();
+            
         //$query = $em->createQuery('SELECT c FROM BlogBundle:Category c LEFT JOIN c.posts p WHERE p.category = c.id');
         //$categories = $query->getResult();
         $categories = $em->getRepository('BlogBundle:Category')->getWithPosts(); //pobranie wszystkich kategorii, które mają posty
@@ -37,6 +55,13 @@ class PostController extends Controller
         
         return $this->render('BlogBundle:Post:index.html.twig', array(
             'entities' => $entities,
+            
+            'last_page' => $last_page,
+            'previous_page' => $previous_page,
+            'current_page' => $page,
+            'next_page' => $next_page,
+            'total_posts' => $total_posts,
+            
             'categories' => $categories,
             'tags' => $tags,
             'archives' => $archives,

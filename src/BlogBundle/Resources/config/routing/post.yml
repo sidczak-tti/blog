@@ -1,6 +1,6 @@
 post:
-    path:     /
-    defaults: { _controller: "BlogBundle:Post:index" }
+    path:     /{page}
+    defaults: { _controller: "BlogBundle:Post:index", page: 1 }
 
 post_show:
     path:     /{id}/{category}/{title}

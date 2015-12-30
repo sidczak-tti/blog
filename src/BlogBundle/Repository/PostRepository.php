@@ -10,7 +10,7 @@ namespace BlogBundle\Repository;
  */
 class PostRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function getPostsFromCategory($category_id = null)
+    public function getPostsFromCategory($category_id = null, $max = null, $offset = null)
     {
         $qb = $this->createQueryBuilder('p');
 
@@ -19,13 +19,64 @@ class PostRepository extends \Doctrine\ORM\EntityRepository
             $qb->andWhere('p.category = :category_id')
               ->setParameter('category_id', $category_id);
         }
+        
+        if($max)
+        {
+            $qb->setMaxResults($max);
+        }
+        
+        if($offset)
+        {
+            $qb->setFirstResult($offset);
+        }
 
         $query = $qb->getQuery();
 
         return $query->getResult();
     }
     
-    public function getPostsFromTag($tag_id = null)
+    public function countPostsFromCategory($category_id = null)
+    {
+        $qb = $this->createQueryBuilder('p');
+        
+        if($category_id)
+        {
+            $qb->andWhere('p.category = :category_id')
+              ->setParameter('category_id', $category_id);
+        }
+
+        $query = $qb->getQuery();
+
+        return count($query->getResult());
+    }
+    
+    public function getPostsFromTag($tag_id = null, $max = null, $offset = null)
+    {
+        $qb = $this->createQueryBuilder('p');
+
+        if($tag_id)
+        {
+            $qb->innerJoin('p.tags', 'pt')
+              ->where('pt.id = :tag_id')
+              ->setParameter('tag_id', $tag_id);
+        }
+        
+        if($max)
+        {
+            $qb->setMaxResults($max);
+        }
+        
+        if($offset)
+        {
+            $qb->setFirstResult($offset);
+        }
+
+        $query = $qb->getQuery();
+
+        return $query->getResult();
+    }
+    
+    public function countPostsFromTag($tag_id = null)
     {
         $qb = $this->createQueryBuilder('p');
 
@@ -38,7 +89,7 @@ class PostRepository extends \Doctrine\ORM\EntityRepository
 
         $query = $qb->getQuery();
 
-        return $query->getResult();
+        return count($query->getResult());
     }
     
     public function getArchives()
