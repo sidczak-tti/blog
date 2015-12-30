@@ -15,8 +15,8 @@ blog_tag:
     defaults: { _controller: BlogBundle:Tag:show, page: 1 }
     
 blog_archive:
-    path:     /archive/{year}/{month}
-    defaults: { _controller: "BlogBundle:Post:archive" }
+    path:     /archive/{year}/{month}/{page}
+    defaults: { _controller: "BlogBundle:Post:archive", page: 1 }
     
 blog_archives_page:
     path:     /archive

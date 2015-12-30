@@ -107,7 +107,7 @@ class PostRepository extends \Doctrine\ORM\EntityRepository
         return $query->getResult();
     }
     
-    public function getPostFromArchives($year = null, $month = null)
+    public function getPostFromArchives($year = null, $month = null, $max = null, $offset = null)
     {
         $qb = $this->createQueryBuilder('p');
         
@@ -121,6 +121,16 @@ class PostRepository extends \Doctrine\ORM\EntityRepository
         {
             $qb->andWhere('MONTH(p.published_at) = :month')
               ->setParameter('month', $month);
+        }
+        
+        if($max)
+        {
+            $qb->setMaxResults($max);
+        }
+        
+        if($offset)
+        {
+            $qb->setFirstResult($offset);
         }
         
         $query = $qb->getQuery();
