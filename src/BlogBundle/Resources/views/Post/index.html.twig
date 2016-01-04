@@ -29,6 +29,13 @@
                 <i class="fa fa-user"></i> <a href="{{ path('blog_author', { 'email': entity.authoremail }) }}">{{ entity.authoremail }}</a> | 
                 <i class="fa fa-share-alt"></i> <a href="{{ path('blog_category', { 'slug': entity.category.slug }) }}">{{ entity.category }}</a>
             </p>
+{#
+            {% if entity.images %}
+                {% for image in entity.images|slice(0,1) %}
+                    <img class="img-responsive img-center" src="{{ asset('bundles/blog/images/') }}{{ image.image }}" alt="{{ entity.title|raw }}"><br/>
+                {% endfor %}
+            {% endif %}
+#}
             <p>
                 {{ entity.excerpt|raw|slice(0, 300) }}
                 {{ entity.excerpt|length > 300 ? '[...]' : ''}}

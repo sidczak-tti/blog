@@ -29,6 +29,13 @@
     </div>
     <div class="row">
         <div class="col-md-8">
+{#
+            {% if entity.images %}
+                {% for image in entity.images %}
+                    <img class="img-responsive img-center" src="{{ asset('bundles/blog/images/') }}{{ image.image }}" alt="{{ entity.title|raw }}"><br/>
+                {% endfor %}
+            {% endif %}
+#}
             <p>
                 {{ entity.excerpt|raw }}
             </p>
