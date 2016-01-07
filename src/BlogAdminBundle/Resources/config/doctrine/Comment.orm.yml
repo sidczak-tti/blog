@@ -1,7 +1,7 @@
-# src/BlogBundle/Resources/config/doctrine/Comment.orm.yml
-BlogBundle\Entity\Comment:
+# src/BlogAdminBundle/Resources/config/doctrine/Comment.orm.yml
+BlogAdminBundle\Entity\Comment:
   type: entity
-  #repositoryClass: BlogBundle\Repository\CommentRepository
+  #repositoryClass: BlogAdminBundle\Repository\CommentRepository
   table: comment
   id:
     id:

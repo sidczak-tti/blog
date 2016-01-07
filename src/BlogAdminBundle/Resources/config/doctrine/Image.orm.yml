@@ -1,7 +1,7 @@
-# src/BlogBundle/Resources/config/doctrine/Image.orm.yml
-BlogBundle\Entity\Image:
+# src/BlogAdminBundle/Resources/config/doctrine/Image.orm.yml
+BlogAdminBundle\Entity\Image:
   type: entity
-  #repositoryClass: BlogBundle\Repository\ImageRepository
+  #repositoryClass: BlogAdminBundle\Repository\ImageRepository
   table: image
   id:
     id:
