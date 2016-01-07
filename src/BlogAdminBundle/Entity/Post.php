@@ -2,6 +2,7 @@
 
 namespace BlogAdminBundle\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
 use BlogBundle\Utils\Blog as Blog;
 
 /**

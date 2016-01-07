@@ -165,5 +165,10 @@ class Tag
         // Add your code here
         $this->slug = Blog::slugify($this->getName());
     }
+    
+    public function __toString()
+    {
+        return $this->name;
+    }
 }
 
