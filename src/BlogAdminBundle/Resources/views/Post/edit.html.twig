@@ -1,16 +1,30 @@
-{% extends '::base.html.twig' %}
+{% extends 'BlogAdminBundle::base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block stylesheets %}{% endblock %}
+
+{% block javascripts %}{% endblock %}
 
 {% block body -%}
-    <h1>Post edit</h1>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            
+            <h1 class="page-header">Post edit</h1>
 
-    {{ form(edit_form) }}
+            {{ form(edit_form) }}
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('admin_post') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+            <ul class="record_actions">
+                <li>
+                    <a href="{{ path('admin_post') }}">
+                        Back to the list
+                    </a>
+                </li>
+                <li>{{ form(delete_form) }}</li>
+            </ul>
+            
+        </div>
+    </div>
+</div>
 {% endblock %}

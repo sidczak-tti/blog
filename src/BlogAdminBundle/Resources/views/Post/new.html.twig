@@ -1,15 +1,29 @@
-{% extends '::base.html.twig' %}
+{% extends 'BlogAdminBundle::base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block stylesheets %}{% endblock %}
+
+{% block javascripts %}{% endblock %}
 
 {% block body -%}
-    <h1>Post creation</h1>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            
+            <h1 class="page-header">Post creation</h1>
 
-    {{ form(form) }}
+            {{ form(form) }}
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('admin_post') }}">
-            Back to the list
-        </a>
-    </li>
-</ul>
+            <ul class="record_actions">
+                <li>
+                    <a href="{{ path('admin_post') }}">
+                        Back to the list
+                    </a>
+                </li>
+            </ul>
+        
+        </div>
+    </div>
+</div>
 {% endblock %}
