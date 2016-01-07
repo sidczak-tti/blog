@@ -2,6 +2,8 @@
 
 namespace BlogAdminBundle\Entity;
 
+use BlogBundle\Utils\Blog as Blog;
+
 /**
  * Tag
  */
@@ -161,6 +163,7 @@ class Tag
     public function setSlugValue()
     {
         // Add your code here
+        $this->slug = Blog::slugify($this->getName());
     }
 }
 

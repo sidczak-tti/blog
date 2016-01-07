@@ -2,6 +2,8 @@
 
 namespace BlogAdminBundle\Entity;
 
+use BlogBundle\Utils\Blog as Blog;
+
 /**
  * Post
  */
@@ -502,6 +504,10 @@ class Post
     public function setPublishedAtValue()
     {
         // Add your code here
+        if(!$this->getPublishedAt())
+        {
+            $this->published_at = new \DateTime();
+        }
     }
 
     /**
@@ -510,6 +516,7 @@ class Post
     public function setSlugValue()
     {
         // Add your code here
+        $this->slug = Blog::slugify($this->getTitle());
     }
 
     /**
@@ -518,6 +525,7 @@ class Post
     public function setUpdatedAtValue()
     {
         // Add your code here
+        $this->updated_at = new \DateTime();
     }
 }
 
