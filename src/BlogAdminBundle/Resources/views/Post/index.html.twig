@@ -71,6 +71,38 @@
             <a class="btn btn-default" href="{{ path('admin_post_new') }}">Create a new entry</a>
         </div>
     </div>
+        
+    <div class="row">
+        <div class="col-md-6">
+            <p><strong>{{ total_products }}</strong> products
+                {% if last_page > 1 %}
+                    - page <strong>{{ current_page }}/{{ last_page }}</strong>
+                {% endif %}
+            </p>
+        </div>
+        {% if last_page > 1 %}
+        <div class="col-md-6">
+            <div class="text-right">
+                <ul class="pagination">
+                  <li><a href="{{ path('admin_post', { 'page': 1 }) }}">&laquo;</a></li>
+                  <li><a href="{{ path('admin_post', { 'page': previous_page }) }}">&lsaquo;</a></li>
+
+                  {% for page in 1..last_page %}
+                    {% if page == current_page %}
+                      <li class="active"><a href="#">{{ page }}</a></li>
+                    {% else %}
+                      <li><a href="{{ path('admin_post', { 'page': page }) }}">{{ page }}</a></li>
+                    {% endif %}
+                  {% endfor %}
+                  
+                  <li><a href="{{ path('admin_post', { 'page': next_page }) }}">&rsaquo;</a></li>
+                  <li><a href="{{ path('admin_post', { 'page': last_page }) }}">&raquo;</a></li>
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+        
 </div>
             
 {% endblock %}

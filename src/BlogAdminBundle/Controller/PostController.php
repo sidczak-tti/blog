@@ -19,15 +19,36 @@ class PostController extends Controller
      * Lists all Post entities.
      *
      */
-    public function indexAction()
+    public function indexAction($page)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('BlogAdminBundle:Post')->findAll();
+        $posts = $em->getRepository('BlogAdminBundle:Post')->findAll();
         //$entities = $em->getRepository('BlogAdminBundle:Post')->findBy(array(), array('published_at' => 'DESC'));
+        
+        $total_products = count($posts);
+        $products_per_page = 5;
+		
+        $last_page = ceil($total_products / $products_per_page);
+        $previous_page = $page > 1 ? $page - 1 : 1;
+        $next_page = $page < $last_page ? $page + 1 : $last_page;
+        
+        $entities = $em->getRepository('BlogAdminBundle:Post');
+		
+        $query = $entities->createQueryBuilder('p')
+            ->setMaxResults($products_per_page)
+            ->setFirstResult(($page - 1) * $products_per_page)
+            ->getQuery();
+		
+        $entities = $query->getResult();
 
         return $this->render('BlogAdminBundle:Post:index.html.twig', array(
             'entities' => $entities,
+            'last_page' => $last_page,
+            'previous_page' => $previous_page,
+            'current_page' => $page,
+            'next_page' => $next_page,
+            'total_products' => $total_products,
         ));
     }
     /**

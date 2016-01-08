@@ -1,6 +1,6 @@
 admin_post:
-    path:     /
-    defaults: { _controller: "BlogAdminBundle:Post:index" }
+    path:     /{page}
+    defaults: { _controller: "BlogAdminBundle:Post:index", page: 1 }
 
 admin_post_show:
     path:     /{id}/show
