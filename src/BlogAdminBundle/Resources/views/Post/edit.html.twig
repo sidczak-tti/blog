@@ -6,23 +6,135 @@
 
 {% block javascripts %}{% endblock %}
 
+{% form_theme edit_form _self %}
+ 
+{% block form_errors %}
+{% spaceless %}
+    {% if errors|length > 0 %}
+        {% for error in errors %}
+            <small class="help-block">{{ error.messageTemplate|trans(error.messageParameters, 'validators') }}</small>
+        {% endfor %}
+    {% endif %}
+{% endspaceless %}
+{% endblock form_errors %}
+
+{% block choice_widget_expanded %}
+{% spaceless %}
+    <div {{ block('widget_container_attributes') }} class="my-form-choices">
+    {% for child in form %}
+        {{ form_widget(child) }}
+    {% endfor %}
+    </div>
+{% endspaceless %}
+{% endblock choice_widget_expanded %}
+
+{% block checkbox_widget %}
+{% spaceless %}
+    <div class="checkbox">
+        <label for="{{ id }}"><input type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />{{ label|trans({}, translation_domain) }}</label>
+    </div>
+{% endspaceless %}
+{% endblock checkbox_widget %}
+
+{% block radio_widget %}
+{% spaceless %}
+    <div class="radio">
+        <label for="{{ id }}"><input type="radio" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />{{ label|trans({}, translation_domain) }}</label>
+    </div>
+{% endspaceless %}
+{% endblock radio_widget %}
+
 {% block body -%}
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
-            
             <h1 class="page-header">Post edit</h1>
+        </div>  
+    </div>
+    <div class="row">
+        <div class="col-sm-offset-3 col-md-6">
 
-            {{ form(edit_form) }}
+            {# {{ form(edit_form) }} #}
+            {{ form_start(edit_form, {'attr': {'novalidate': 'novalidate'}}) }}
+            
+                {{ form_errors(edit_form) }}
+                
+                <div class="form-group {% if form_errors(edit_form.category) %} has-error {% endif %}">
+                    {{ form_label(edit_form.category) }}
+                    {{ form_widget(edit_form.category, { 'attr': {'class': 'form-control'} }) }}
+                    {{ form_errors(edit_form.category) }}
+                </div>
+                <div class="form-group {% if form_errors(edit_form.title) %} has-error {% endif %}">
+                    {{ form_label(edit_form.title) }} *
+                    {{ form_widget(edit_form.title, { 'attr': {'class': 'form-control'} }) }}
+                    {{ form_errors(edit_form.title) }}
+                </div>
+                <div class="form-group {% if form_errors(edit_form.excerpt) %} has-error {% endif %}">
+                    {{ form_label(edit_form.excerpt) }}
+                    {{ form_widget(edit_form.excerpt, { 'attr': {'class': 'form-control'} }) }}
+                    {{ form_errors(edit_form.excerpt) }}
+                </div>
+                <div class="form-group {% if form_errors(edit_form.content) %} has-error {% endif %}">
+                    {{ form_label(edit_form.content) }} *
+                    {{ form_widget(edit_form.content, { 'attr': {'class': 'form-control'} }) }}
+                    {{ form_errors(edit_form.content) }}
+                </div>
+                <div class="form-group {% if form_errors(edit_form.author_email) %} has-error {% endif %}">
+                    {{ form_label(edit_form.author_email) }} *
+                    {{ form_widget(edit_form.author_email, { 'attr': {'class': 'form-control'} }) }}
+                    {{ form_errors(edit_form.author_email) }}
+                </div>
+                <div class="form-group {% if form_errors(edit_form.status_post) %} has-error {% endif %}">
+                    {{ form_label(edit_form.status_post) }}
+                    {{ form_widget(edit_form.status_post, { 'attr': {'class': 'form-control'} }) }}
+                    {{ form_errors(edit_form.status_post) }}
+                </div>
+                <div class="form-group">
+                    {#{{ form_label(edit_form.show_comment) }}#}
+                    {{ form_widget(edit_form.show_comment) }}
+                    {{ form_errors(edit_form.show_comment) }}
+                </div>
+                <div class="form-group">
+                    {#{{ form_label(edit_form.enable_comment) }}#}
+                    {{ form_widget(edit_form.enable_comment) }}
+                    {{ form_errors(edit_form.enable_comment) }}
+                </div>
+                <div class="form-group {% if form_errors(edit_form.views_post) %} has-error {% endif %}">
+                    {{ form_label(edit_form.views_post) }}
+                    {{ form_widget(edit_form.views_post, { 'attr': {'class': 'form-control'} }) }}
+                    {{ form_errors(edit_form.views_post) }}
+                </div>
+                <div class="form-group {% if form_errors(edit_form.published_at) %} has-error {% endif %}">
+                    {{ form_label(edit_form.published_at) }}
+                    {{ form_widget(edit_form.published_at, { 'attr': {'class': 'form-control'} }) }}
+                    {{ form_errors(edit_form.published_at) }}
+                </div>
+                <div class="form-group {% if form_errors(edit_form.updated_at) %} has-error {% endif %}">
+                    {{ form_label(edit_form.updated_at) }}
+                    {{ form_widget(edit_form.updated_at, { 'attr': {'class': 'form-control'} }) }}
+                    {{ form_errors(edit_form.updated_at) }}
+                </div>
+                <div class="form-group {% if form_errors(edit_form.tags) %} has-error {% endif %}">
+                    {{ form_label(edit_form.tags) }}
+                    {{ form_widget(edit_form.tags) }}
+                    {{ form_errors(edit_form.tags) }}
+                </div>
+                
+                <div class="form-group">
+                    {{ form_widget(edit_form.submit, { 'attr': {'class': 'btn btn-default'} }) }}
+                    <a class="btn btn-default" href="{{ path('admin_post') }}">Back to the list</a>
+                    <a class="btn btn-danger" href="{{ path('admin_post_remove', { 'id': entity.id }) }}" onclick="if(!confirm('{% trans %}Are you sure?{% endtrans %}')) { return false; }">Delete</a>
+                </div>
+                
+            {{ form_end(edit_form) }}
 
-            <ul class="record_actions">
-                <li>
-                    <a href="{{ path('admin_post') }}">
-                        Back to the list
-                    </a>
-                </li>
-                <li>{{ form(delete_form) }}</li>
-            </ul>
+            {#<a class="btn btn-default" href="{{ path('admin_post') }}">Back to the list</a>#}
+            {#{{ form(delete_form) }}#}
+            {#
+            {{ form_start(delete_form, { 'attr': {'class': 'form-btn-inline'} }) }}   	
+              {{ form_widget(delete_form.submit, { 'attr': {'class': 'btn btn-danger'} }) }}
+            {{ form_end(delete_form) }}
+            #}
             
         </div>
     </div>

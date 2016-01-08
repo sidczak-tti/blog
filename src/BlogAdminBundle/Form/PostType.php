@@ -4,6 +4,7 @@ namespace BlogAdminBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class PostType extends AbstractType
@@ -16,18 +17,30 @@ class PostType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('slug')
-            ->add('excerpt')
-            ->add('content')
-            ->add('author_email')
+            ->add('excerpt', 'textarea', array('attr' => array('rows' => '3')))
+            ->add('content', 'textarea', array('attr' => array('rows' => '5')))
+            ->add('author_email', 'email')
             ->add('status_post')
-            ->add('show_comment')
-            ->add('enable_comment')
+            ->add('show_comment', 'checkbox', array(
+                'label' => 'Show comment',
+            ))
+            ->add('enable_comment', 'checkbox', array(
+                'label' => 'Enable comment',
+            ))
             ->add('views_post')
-            ->add('published_at')
-            ->add('updated_at')
+            ->add('published_at', 'date', array(
+            	'widget' => 'single_text',
+            	'attr' => array('placeholder' => 'YYYY-MM-DD'),
+            ))
+            ->add('updated_at', 'date', array(
+            	'widget' => 'single_text',
+            	'attr' => array('placeholder' => 'YYYY-MM-DD'),
+            ))
             ->add('category')
-            ->add('tags')
+            ->add('tags', null, array(
+                'expanded' => true,
+            	'required' => true,
+            ))
         ;
     }
     
@@ -36,8 +49,18 @@ class PostType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
+       $this->configureOptions($resolver);
+        
         $resolver->setDefaults(array(
             'data_class' => 'BlogAdminBundle\Entity\Post'
+        ));
+    }
+    
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        //define your defaults here
+        $resolver->setDefaults(array(
+            'widget' => 'single_text',
         ));
     }
 

@@ -5,6 +5,10 @@ namespace BlogAdminBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use BlogBundle\Utils\Blog as Blog;
 
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\NotBlank;
+
 /**
  * Post
  */
@@ -527,6 +531,18 @@ class Post
     {
         // Add your code here
         $this->updated_at = new \DateTime();
+    }
+    
+    public static function loadValidatorMetadata(ClassMetadata $metadata)
+    {
+        $metadata->addPropertyConstraint('title', new NotBlank());
+        $metadata->addPropertyConstraint('content', new NotBlank());
+        $metadata->addPropertyConstraint('author_email', new NotBlank());
+        $metadata->addPropertyConstraint('author_email', new Assert\Email(array(
+            'message' => 'The email "{{ value }}" is not a valid email.',
+            'checkMX' => true,
+        )));
+
     }
 }
 

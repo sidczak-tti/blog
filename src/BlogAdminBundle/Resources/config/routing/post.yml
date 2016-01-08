@@ -28,3 +28,15 @@ admin_post_delete:
     path:     /{id}/delete
     defaults: { _controller: "BlogAdminBundle:Post:delete" }
     methods:  [POST, DELETE]
+    
+admin_post_remove:
+    path:     /{id}/remove
+    defaults: { _controller: "BlogAdminBundle:Post:remove" }
+    
+admin_post_showcomment:
+    path:     /{id}/showcomment
+    defaults: { _controller: "BlogAdminBundle:Post:showComment" }
+    
+admin_post_enablecomment:
+    path:     /{id}/enablecomment
+    defaults: { _controller: "BlogAdminBundle:Post:enableComment" }

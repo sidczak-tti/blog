@@ -24,6 +24,7 @@ class PostController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('BlogAdminBundle:Post')->findAll();
+        //$entities = $em->getRepository('BlogAdminBundle:Post')->findBy(array(), array('published_at' => 'DESC'));
 
         return $this->render('BlogAdminBundle:Post:index.html.twig', array(
             'entities' => $entities,
@@ -220,5 +221,75 @@ class PostController extends Controller
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()
         ;
+    }
+    
+    public function removeAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('BlogAdminBundle:Post')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Post entity.');
+        }
+        
+        $em->remove($entity);
+        $em->flush();
+        
+        return $this->redirect($this->generateUrl('admin_post'));
+    }
+    
+    public function showCommentAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('BlogAdminBundle:Post')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Post entity.');
+        }
+        
+        if(!$entity->getShowComment()) {
+	      $entity->setShowComment(true);
+	      //$entity->save();
+	    }
+	    else {
+	      $entity->setShowComment(false);
+	      //$entity->save();
+	    }
+        
+	    //!$entity->getShowComment() ? $entity->setShowComment(true) : $entity->setShowComment(false);
+	    
+        $em->persist($entity);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('admin_post'));
+    }
+    
+    public function enableCommentAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('BlogAdminBundle:Post')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Post entity.');
+        }
+        
+        if(!$entity->getEnableComment()) {
+	      $entity->setEnableComment(true);
+	      //$entity->save();
+	    }
+	    else {
+	      $entity->setEnableComment(false);
+	      //$entity->save();
+	    }
+        
+	    //!$entity->getEnableComment() ? $entity->setEnableComment(true) : $entity->setEnableComment(false);
+	    
+        $em->persist($entity);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('admin_post'));
     }
 }

@@ -35,8 +35,19 @@
                                 {#{{ entity.excerpt|length > 300 ? entity.excerpt|raw|slice(0,300) ~ '[...]' : entity.excerpt|raw }}#}
                                 <hr/>
                                 <p>Actions:
-                                <a class="btn btn-primary btn-xs" href="{{ path('admin_post_show', { 'id': entity.id }) }}">show</a>
-                                <a class="btn btn-primary btn-xs" href="{{ path('admin_post_edit', { 'id': entity.id }) }}">edit</a>
+                                <a class="btn btn-primary btn-xs" href="{{ path('admin_post_show', { 'id': entity.id }) }}"><i class="fa fa-fw fa-file-text-o"></i> show</a>
+                                <a class="btn btn-primary btn-xs" href="{{ path('admin_post_edit', { 'id': entity.id }) }}"><i class="fa fa-fw fa-pencil"></i> edit</a>
+                                <a class="btn btn-danger btn-xs" href="{{ path('admin_post_remove', { 'id': entity.id }) }}" onclick="if(!confirm('{% trans %}Are you sure?{% endtrans %}')) { return false; }"><i class="fa fa-fw fa-close"></i>delete</a>
+                                {% if entity.showcomment %}
+                                    <a class="btn btn-success btn-xs" href="{{ path('admin_post_showcomment', { 'id': entity.id }) }}"><i class="fa fa-fw fa-check"></i> show comment</a>
+		                {% else %}
+                                    <a class="btn btn-danger btn-xs" href="{{ path('admin_post_showcomment', { 'id': entity.id }) }}"><i class="fa fa-fw fa-close"></i> show comment</a>
+		                {% endif %}
+                                {% if entity.enablecomment %}
+                                    <a class="btn btn-success btn-xs" href="{{ path('admin_post_enablecomment', { 'id': entity.id }) }}"><i class="fa fa-fw fa-check"></i> enable comment</a>
+		                {% else %}
+                                    <a class="btn btn-danger btn-xs" href="{{ path('admin_post_enablecomment', { 'id': entity.id }) }}"><i class="fa fa-fw fa-close"></i> enable comment</a>
+		                {% endif %}
                                 </p>
                             </td>
                             <td>{{ entity.authoremail }}</td>
