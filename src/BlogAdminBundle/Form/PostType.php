@@ -18,9 +18,16 @@ class PostType extends AbstractType
         $builder
             ->add('title')
             ->add('excerpt', 'textarea', array('attr' => array('rows' => '3')))
-            ->add('content', 'textarea', array('attr' => array('rows' => '5')))
+            ->add('content', 'textarea', array('attr' => array('rows' => '18')))
             ->add('author_email', 'email')
-            ->add('status_post')
+            ->add('status_post', 'choice', array(
+                'choices' => array(
+                    'publish' => 'Publish', 
+                    'expect' => 'Expect', 
+                    'draft' => 'Draft',
+                ),
+                'expanded' => false
+            ))
             ->add('show_comment', 'checkbox', array(
                 'label' => 'Show comment',
             ))

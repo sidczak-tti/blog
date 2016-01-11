@@ -51,14 +51,7 @@
                                 </p>
                             </td>
                             <td>{{ entity.authoremail }}</td>
-                            <td>
-                                <select class="form-control input-sm">
-                                  <option>Publish</option>
-                                  <option>Expect</option>
-                                  <option>Draft</option>
-                                </select>
-                                {#{{ entity.statuspost }}#}
-                            </td>
+                            <td>{{ entity.statuspost }}</td>
                             <td>{{ entity.viewspost }}</td>
                             <td>{% if entity.publishedat %}{{ entity.publishedat|date('Y-m-d H:i:s') }}{% endif %}</td>
                             <td>{% if entity.updatedat %}{{ entity.updatedat|date('Y-m-d H:i:s') }}{% endif %}</td>
@@ -74,7 +67,7 @@
         
     <div class="row">
         <div class="col-md-6">
-            <p><strong>{{ total_products }}</strong> products
+            <p><strong>{{ total_posts }}</strong> posts
                 {% if last_page > 1 %}
                     - page <strong>{{ current_page }}/{{ last_page }}</strong>
                 {% endif %}

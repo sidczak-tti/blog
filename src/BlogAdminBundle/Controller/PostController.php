@@ -26,18 +26,18 @@ class PostController extends Controller
         $posts = $em->getRepository('BlogAdminBundle:Post')->findAll();
         //$entities = $em->getRepository('BlogAdminBundle:Post')->findBy(array(), array('published_at' => 'DESC'));
         
-        $total_products = count($posts);
-        $products_per_page = 5;
+        $total_posts = count($posts);
+        $posts_per_page = 5;
 		
-        $last_page = ceil($total_products / $products_per_page);
+        $last_page = ceil($total_posts / $posts_per_page);
         $previous_page = $page > 1 ? $page - 1 : 1;
         $next_page = $page < $last_page ? $page + 1 : $last_page;
         
         $entities = $em->getRepository('BlogAdminBundle:Post');
 		
         $query = $entities->createQueryBuilder('p')
-            ->setMaxResults($products_per_page)
-            ->setFirstResult(($page - 1) * $products_per_page)
+            ->setMaxResults($posts_per_page)
+            ->setFirstResult(($page - 1) * $posts_per_page)
             ->getQuery();
 		
         $entities = $query->getResult();
@@ -48,7 +48,7 @@ class PostController extends Controller
             'previous_page' => $previous_page,
             'current_page' => $page,
             'next_page' => $next_page,
-            'total_products' => $total_products,
+            'total_posts' => $total_posts,
         ));
     }
     /**
