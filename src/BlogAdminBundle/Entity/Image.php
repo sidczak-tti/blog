@@ -80,5 +80,27 @@ class Image
     {
         return $this->post;
     }
+    
+    protected function getUploadRootDir()
+    {
+        return __DIR__.'/../../../web/'.$this->getUploadDir();
+    }
+
+    protected function getUploadDir()
+    {
+        return 'bundles/blog/images/';
+    }
+    
+    /**
+     * @ORM\PostRemove
+     */
+    public function removeUpload()
+    {
+    	$file = $this->getUploadRootDir().'/'.$this->getImage();
+
+	    if (file_exists($file)) {
+	    	unlink($file);
+	    }
+    }
 }
 

@@ -70,6 +70,11 @@
                     {{ form_widget(form.title, { 'attr': {'class': 'form-control'} }) }}
                     {{ form_errors(form.title) }}
                 </div>
+                <div class="form-group {% if form_errors(form.file) %} has-error {% endif %}">
+                    {{ form_label(form.file) }}
+                    {{ form_widget(form.file) }}
+                    {{ form_errors(form.file) }}
+                </div>
                 <div class="form-group {% if form_errors(form.excerpt) %} has-error {% endif %}">
                     {{ form_label(form.excerpt) }}
                     {{ form_widget(form.excerpt, { 'attr': {'class': 'form-control'} }) }}

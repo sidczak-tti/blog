@@ -14,7 +14,21 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-offset-2 col-md-8">
+        <div class="col-md-3">
+        {% if entity.images is empty %}
+            <p>No images</p>
+        {% else %}   
+            {% for image in entity.images %}
+                {% if image.image is empty %}
+                    <p>No images</p> 
+                {% else %}
+                    <img class="img-responsive" src="{{ asset('bundles/blog/images/') }}{{ image.image }}" alt="{{ entity.title|raw }}">
+                    <br/>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        </div>
+        <div class="col-md-6">
             
             <div class="table-responsive">
                 <table class="table">

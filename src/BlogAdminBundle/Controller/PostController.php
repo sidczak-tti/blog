@@ -7,7 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use BlogAdminBundle\Entity\Post;
 use BlogAdminBundle\Form\PostType;
-
+use BlogAdminBundle\Entity\Image;
 /**
  * Post controller.
  *
@@ -63,6 +63,14 @@ class PostController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            
+            if ($entity->getFile()) {
+                $img = new Image();
+                $img->setImage($entity->getFile()->getClientOriginalName());
+                $img->setPost($entity);
+                $em->persist($img);
+            }
+            
             $em->persist($entity);
             $em->flush();
 
@@ -192,6 +200,14 @@ class PostController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+            
+            if ($entity->getFile()) {
+                $img = new Image();
+                $img->setImage($entity->getFile()->getClientOriginalName());
+                $img->setPost($entity);
+                $em->persist($img);
+            }
+            
             $em->flush();
 
             return $this->redirect($this->generateUrl('admin_post_edit', array('id' => $id)));
@@ -312,5 +328,21 @@ class PostController extends Controller
         $em->flush();
 
         return $this->redirect($this->generateUrl('admin_post'));
+    }
+    
+    public function removeImageAction(Request $request, $id, $img)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('BlogAdminBundle:Image')->find($img);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Image entity.');
+        }
+        
+        $em->remove($entity);
+        $em->flush();
+        
+        return $this->redirect($this->generateUrl('admin_post_edit', array('id' => $id)));
     }
 }

@@ -79,3 +79,6 @@ BlogAdminBundle\Entity\Post:
   lifecycleCallbacks:
     prePersist: [ setPublishedAtValue, setSlugValue ] 
     preUpdate: [ setUpdatedAtValue ]
+    postPersist: [ upload ]
+    postUpdate: [ upload ]
+    postRemove: [ removeUpload ]

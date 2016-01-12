@@ -20,3 +20,5 @@ BlogAdminBundle\Entity\Image:
       joinColumn:
         name: post_id
         referencedColumnName: id
+  lifecycleCallbacks:
+    postRemove: [ removeUpload ]

@@ -17,6 +17,7 @@ class PostType extends AbstractType
     {
         $builder
             ->add('title')
+            ->add('file', 'file')
             ->add('excerpt', 'textarea', array('attr' => array('rows' => '3')))
             ->add('content', 'textarea', array('attr' => array('rows' => '18')))
             ->add('author_email', 'email')

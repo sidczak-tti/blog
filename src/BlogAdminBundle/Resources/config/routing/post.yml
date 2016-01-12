@@ -40,3 +40,7 @@ admin_post_showcomment:
 admin_post_enablecomment:
     path:     /{id}/enablecomment
     defaults: { _controller: "BlogAdminBundle:Post:enableComment" }
+    
+admin_post_remove-image:
+    path:     /{id}/{img}/remove-image
+    defaults: { _controller: "BlogAdminBundle:Post:removeImage" }

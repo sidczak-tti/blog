@@ -52,7 +52,24 @@
         </div>  
     </div>
     <div class="row">
-        <div class="col-sm-offset-3 col-md-6">
+        <div class="col-md-3">
+        {% if entity.images is empty %}
+            <p>No images</p>
+        {% else %}   
+            {% for image in entity.images %}
+                {% if image.image is empty %}
+                    <p>No images</p> 
+                {% else %}
+                    <img class="img-responsive" src="{{ asset('bundles/blog/images/') }}{{ image.image }}" alt="{{ entity.title|raw }}">
+
+                    <div class="text-center">
+                        <a class="btn btn-danger btn-xs" href="{{ path('admin_post_remove-image', { 'img': image.id, 'id': entity.id }) }}" onclick="if(!confirm('{% trans %}Are you sure?{% endtrans %}')) { return false; }"><i class="fa fa-fw fa-close"></i>delete</a>
+                    </div><br/>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        </div>
+        <div class="col-md-6">
 
             {# {{ form(edit_form) }} #}
             {{ form_start(edit_form, {'attr': {'novalidate': 'novalidate'}}) }}
@@ -68,6 +85,11 @@
                     {{ form_label(edit_form.title) }} *
                     {{ form_widget(edit_form.title, { 'attr': {'class': 'form-control'} }) }}
                     {{ form_errors(edit_form.title) }}
+                </div>
+                <div class="form-group {% if form_errors(edit_form.file) %} has-error {% endif %}">
+                    {{ form_label(edit_form.file) }}
+                    {{ form_widget(edit_form.file) }}
+                    {{ form_errors(edit_form.file) }}
                 </div>
                 <div class="form-group {% if form_errors(edit_form.excerpt) %} has-error {% endif %}">
                     {{ form_label(edit_form.excerpt) }}
@@ -114,11 +136,7 @@
                     {{ form_widget(edit_form.updated_at, { 'attr': {'class': 'form-control'} }) }}
                     {{ form_errors(edit_form.updated_at) }}
                 </div>
-                <div class="form-group {% if form_errors(edit_form.tags) %} has-error {% endif %}">
-                    {{ form_label(edit_form.tags) }}
-                    {{ form_widget(edit_form.tags) }}
-                    {{ form_errors(edit_form.tags) }}
-                </div>
+
                 
                 <div class="form-group">
                     {{ form_widget(edit_form.submit, { 'attr': {'class': 'btn btn-default'} }) }}

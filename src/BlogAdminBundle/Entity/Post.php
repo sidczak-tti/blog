@@ -9,6 +9,8 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+
 /**
  * Post
  */
@@ -533,6 +535,84 @@ class Post
         $this->updated_at = new \DateTime();
     }
     
+    /**
+     * @var string
+     */
+    private $file;
+
+    /**
+     * Sets file.
+     *
+     * @param UploadedFile $file
+     */
+    public function setFile(UploadedFile $file = null)
+    {
+        $this->file = $file;
+    }
+
+    /**
+     * Get file.
+     *
+     * @return UploadedFile
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+    
+    protected function getUploadRootDir()
+    {
+        // the absolute directory path where uploaded
+        // documents should be saved
+        return __DIR__.'/../../../web/'.$this->getUploadDir();
+    }
+
+    protected function getUploadDir()
+    {
+        // get rid of the __DIR__ so it doesn't screw up
+        // when displaying uploaded doc/image in the view.
+        return 'bundles/blog/images/';
+    }
+    
+    /**
+     * @ORM\PostPersist
+     */
+    public function upload()
+    {
+        // the file property can be empty if the field is not required
+        if (null === $this->getFile()) {
+            return;
+        }
+
+        // use the original file name here but you should
+        // sanitize it at least to avoid any security issues
+
+        // move takes the target directory and then the
+        // target filename to move to
+        $this->getFile()->move(
+            $this->getUploadRootDir(),
+            $this->getFile()->getClientOriginalName()
+            //$this->path
+        );
+
+        // clean up the file property as you won't need it anymore
+        $this->file = null;
+    }
+    
+    /**
+     * @ORM\PostRemove
+     */
+    public function removeUpload()
+    {
+    	foreach ($this->getImages() as $img) {
+    	    $file = $this->getUploadRootDir().'/'.$img->getImage();
+
+	    	if (file_exists($file)) {
+	        	unlink($file);
+	    	}
+    	}
+    }
+    
     public static function loadValidatorMetadata(ClassMetadata $metadata)
     {
         $metadata->addPropertyConstraint('title', new NotBlank());
@@ -542,6 +622,7 @@ class Post
             'message' => 'The email "{{ value }}" is not a valid email.',
             'checkMX' => true,
         )));
+        $metadata->addPropertyConstraint('file', new Assert\Image());
 
     }
 }
