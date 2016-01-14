@@ -65,8 +65,12 @@ class PostController extends Controller
             $em = $this->getDoctrine()->getManager();
             
             if ($entity->getFile()) {
+                
+                $entity->setFileRename();
+                
                 $img = new Image();
-                $img->setImage($entity->getFile()->getClientOriginalName());
+                //$img->setImage($entity->getFile()->getClientOriginalName());
+                $img->setImage($entity->getFileRename());
                 $img->setPost($entity);
                 $em->persist($img);
             }
@@ -202,8 +206,12 @@ class PostController extends Controller
         if ($editForm->isValid()) {
             
             if ($entity->getFile()) {
+                
+                $entity->setFileRename();
+                
                 $img = new Image();
-                $img->setImage($entity->getFile()->getClientOriginalName());
+                //$img->setImage($entity->getFile()->getClientOriginalName());
+                $img->setImage($entity->getFileRename());
                 $img->setPost($entity);
                 $em->persist($img);
             }
