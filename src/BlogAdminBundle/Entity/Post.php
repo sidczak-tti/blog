@@ -574,22 +574,6 @@ class Post
         return 'bundles/blog/images/';
     }
     
-    private $file_rename;
-    
-    public function setFileRename()
-    {
-        if (null !== $this->getFile()) {
-            // do whatever you want to generate a unique name
-            $filename = sha1(uniqid(mt_rand(), true));
-            $this->file_rename = $filename.'.'.$this->getFile()->guessExtension();
-        }
-    }
- 
-    public function getFileRename()
-    {
-        return $this->file_rename;
-    }
-    
     /**
      * @ORM\PostPersist
      */
@@ -607,8 +591,7 @@ class Post
         // target filename to move to
         $this->getFile()->move(
             $this->getUploadRootDir(),
-            //$this->getFile()->getClientOriginalName()
-            $this->getFileRename()
+            $this->getFile()->getClientOriginalName()
             //$this->path
         );
 
@@ -640,6 +623,7 @@ class Post
             'checkMX' => true,
         )));
         $metadata->addPropertyConstraint('file', new Assert\Image());
+
     }
 }
 
