@@ -16,7 +16,12 @@ class Image
      * @var string
      */
     private $image;
-
+    
+    /**
+     * @var integer
+     */
+    private $rank = 1;
+    
     /**
      * @var \BlogAdminBundle\Entity\Post
      */
@@ -57,6 +62,30 @@ class Image
         return $this->image;
     }
 
+    /**
+     * Set rank
+     *
+     * @param integer $rank
+     *
+     * @return Image
+     */
+    public function setRank($rank)
+    {
+        $this->rank = $rank;
+
+        return $this;
+    }
+
+    /**
+     * Get rank
+     *
+     * @return integer
+     */
+    public function getRank()
+    {
+        return $this->rank;
+    }
+    
     /**
      * Set post
      *
@@ -103,4 +132,3 @@ class Image
 	    }
     }
 }
-

@@ -642,4 +642,3 @@ class Post
         $metadata->addPropertyConstraint('file', new Assert\Image());
     }
 }
-
