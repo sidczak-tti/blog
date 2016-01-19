@@ -22,7 +22,7 @@
                 {% if image.image is empty %}
                     <p>No images</p> 
                 {% else %}
-                    <img class="img-responsive" src="{{ asset('bundles/blog/images/') }}{{ image.image }}" alt="{{ entity.title|raw }}">
+                    <img class="img-responsive" src="{{ asset('bundles/blog/images/'~ image.image)|imagine_filter('post_img_md') }}" alt="{{ entity.title|raw }}">
                     <br/>
                 {% endif %}
             {% endfor %}
