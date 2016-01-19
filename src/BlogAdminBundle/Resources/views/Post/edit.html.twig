@@ -60,7 +60,8 @@
                 {% if image.image is empty %}
                     <p>No images</p> 
                 {% else %}
-                    <img class="img-responsive" src="{{ asset('bundles/blog/images/') }}{{ image.image }}" alt="{{ entity.title|raw }}">
+                    {#<img class="img-responsive" src="{{ asset('/bundles/blog/images/porsche-cayman-gt4-950x530-lg.jpg'|imagine_filter('post_img_xs')) }}" alt="{{ entity.title|raw }}" />#}
+                    <img class="img-responsive img-center" src="{{ asset('bundles/blog/images/'~ image.image)|imagine_filter('post_img_md') }}" alt="{{ entity.title|raw }}">
 
                     <div class="text-center">
                         <a class="btn btn-danger btn-xs" href="{{ path('admin_post_remove-image', { 'img': image.id, 'id': entity.id }) }}" onclick="if(!confirm('{% trans %}Are you sure?{% endtrans %}')) { return false; }"><i class="fa fa-fw fa-close"></i>delete</a>

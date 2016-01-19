@@ -19,7 +19,8 @@
         "incenteev/composer-parameter-handler": "~2.0",
         "doctrine/doctrine-fixtures-bundle": "dev-master",
         "doctrine/data-fixtures": "dev-master",
-        "beberlei/DoctrineExtensions": "dev-master"
+        "beberlei/DoctrineExtensions": "dev-master",
+        "liip/imagine-bundle": "^1.4"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3",
