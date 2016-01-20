@@ -61,9 +61,18 @@
                     <p>No images</p> 
                 {% else %}
                     {#<img class="img-responsive" src="{{ asset('/bundles/blog/images/porsche-cayman-gt4-950x530-lg.jpg'|imagine_filter('post_img_xs')) }}" alt="{{ entity.title|raw }}" />#}
+                    {#{{ image.rank }}#}
                     <img class="img-responsive img-center" src="{{ asset('bundles/blog/images/'~ image.image)|imagine_filter('post_img_md') }}" alt="{{ entity.title|raw }}">
 
                     <div class="text-center">
+                        {% if image.rank > 1 %}
+                            <a class="btn btn-default btn-xs" href="{{ path('admin_post_up-image', { 'img': image.id, 'id': entity.id }) }}"><i class="fa fa-chevron-up"></i></a>
+                        {% endif %}
+                        {#{% set max = entity.images|length - 1 %}
+                        {{ entity.images.1.rank }}#}
+                        {% if image.rank != max_rank.rank %}
+                            <a class="btn btn-default btn-xs" href="{{ path('admin_post_down-image', { 'img': image.id, 'id': entity.id }) }}"><i class="fa fa-chevron-down"></i></a>
+                        {% endif %}
                         <a class="btn btn-danger btn-xs" href="{{ path('admin_post_remove-image', { 'img': image.id, 'id': entity.id }) }}" onclick="if(!confirm('{% trans %}Are you sure?{% endtrans %}')) { return false; }"><i class="fa fa-fw fa-close"></i>delete</a>
                     </div><br/>
                 {% endif %}
@@ -137,8 +146,13 @@
                     {{ form_widget(edit_form.updated_at, { 'attr': {'class': 'form-control'} }) }}
                     {{ form_errors(edit_form.updated_at) }}
                 </div>
+                <div class="form-group {% if form_errors(edit_form.tags) %} has-error {% endif %}">
+                    {{ form_label(edit_form.tags) }}
+                    {{ form_widget(edit_form.tags) }}
+                    {{ form_errors(edit_form.tags) }}
+                </div>
 
-                
+
                 <div class="form-group">
                     {{ form_widget(edit_form.submit, { 'attr': {'class': 'btn btn-default'} }) }}
                     <a class="btn btn-default" href="{{ path('admin_post') }}">Back to the list</a>

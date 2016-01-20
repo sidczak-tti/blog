@@ -44,3 +44,11 @@ admin_post_enablecomment:
 admin_post_remove-image:
     path:     /{id}/{img}/remove-image
     defaults: { _controller: "BlogAdminBundle:Post:removeImage" }
+    
+admin_post_up-image:
+    path:     /{id}/{img}/up-image
+    defaults: { _controller: "BlogAdminBundle:Post:upImage" }
+    
+admin_post_down-image:
+    path:     /{id}/{img}/down-image
+    defaults: { _controller: "BlogAdminBundle:Post:downImage" }

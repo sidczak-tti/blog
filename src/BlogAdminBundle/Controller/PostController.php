@@ -25,7 +25,7 @@ class PostController extends Controller
 
         $posts = $em->getRepository('BlogAdminBundle:Post')->findAll();
         //$entities = $em->getRepository('BlogAdminBundle:Post')->findBy(array(), array('published_at' => 'DESC'));
-        
+    
         $total_posts = count($posts);
         $posts_per_page = 5;
 		
@@ -72,6 +72,10 @@ class PostController extends Controller
                 //$img->setImage($entity->getFile()->getClientOriginalName());
                 $img->setImage($entity->getFileRename());
                 $img->setPost($entity);
+                $rank = $em->getRepository('BlogAdminBundle:Image')->getMaxRank($id);
+                if ($rank) {
+                    $img->setRank($rank['rank'] + 1);
+                }
                 $em->persist($img);
             }
             
@@ -159,11 +163,14 @@ class PostController extends Controller
 
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
-
+        
+        $max_rank = $em->getRepository('BlogAdminBundle:Image')->getMaxRank($id);
+        
         return $this->render('BlogAdminBundle:Post:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'max_rank' => $max_rank,
         ));
     }
 
@@ -213,6 +220,23 @@ class PostController extends Controller
                 //$img->setImage($entity->getFile()->getClientOriginalName());
                 $img->setImage($entity->getFileRename());
                 $img->setPost($entity);
+                
+                /*$repository = $this->getDoctrine()
+                    ->getRepository('BlogBundle:Image');
+
+                $query = $repository->createQueryBuilder('i')
+                    ->select('MAX(i.rank) as rank')
+                    ->where('i.post = :post_id')
+                    ->setParameter('post_id', $id)
+                    ->getQuery();
+                
+                $rank = $query->getSingleResult();*/
+                
+                $rank = $em->getRepository('BlogAdminBundle:Image')->getMaxRank($id);
+                if ($rank) {
+                    $img->setRank($rank['rank'] + 1);
+                }
+                
                 $em->persist($img);
             }
             
@@ -349,6 +373,84 @@ class PostController extends Controller
         }
         
         $em->remove($entity);
+        $em->flush();
+        
+        $images = $em->getRepository('BlogAdminBundle:Image')->updateRank($id);
+        if ($images) {
+            $rank = 0;
+            foreach ($images as $image) {
+                $image->setRank(++$rank);
+                $em->persist($image);
+            }
+        }
+        $em->flush();
+        
+        return $this->redirect($this->generateUrl('admin_post_edit', array('id' => $id)));
+    }
+    
+    public function upImageAction(Request $request, $id, $img)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('BlogAdminBundle:Image')->find($img);
+        
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Image entity.');
+        }
+
+        $rank = $entity->getRank();
+        
+        $repository = $this->getDoctrine()
+            ->getRepository('BlogBundle:Image');
+
+        $query = $repository->createQueryBuilder('i')
+            ->where('i.rank = :rank')
+            ->setParameter('rank', $rank - 1)
+            ->andWhere('i.post = :post_id')
+            ->setParameter('post_id', $id)
+            ->getQuery();
+
+        $image = $query->getSingleResult();
+        $image->setRank($rank);
+
+        $entity->setRank($rank - 1);
+        
+        $em->persist($entity);
+        $em->persist($image);
+        $em->flush();
+        
+        return $this->redirect($this->generateUrl('admin_post_edit', array('id' => $id)));
+    }
+    
+    public function downImageAction(Request $request, $id, $img)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('BlogAdminBundle:Image')->find($img);
+        
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Image entity.');
+        }
+
+        $rank = $entity->getRank();
+        
+        $repository = $this->getDoctrine()
+            ->getRepository('BlogBundle:Image');
+
+        $query = $repository->createQueryBuilder('i')
+            ->where('i.rank = :rank')
+            ->setParameter('rank', $rank + 1)
+            ->andWhere('i.post = :post_id')
+            ->setParameter('post_id', $id)
+            ->getQuery();
+
+        $image = $query->getSingleResult();
+        $image->setRank($rank);
+
+        $entity->setRank($rank + 1);
+        
+        $em->persist($entity);
+        $em->persist($image);
         $em->flush();
         
         return $this->redirect($this->generateUrl('admin_post_edit', array('id' => $id)));

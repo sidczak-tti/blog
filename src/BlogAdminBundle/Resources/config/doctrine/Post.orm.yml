@@ -51,6 +51,8 @@ BlogAdminBundle\Entity\Post:
       targetEntity: Image
       mappedBy: post
       cascade: [ remove ]
+      orderBy:
+        rank: ASC
     comments:
       targetEntity: Comment
       mappedBy: post

@@ -20,11 +20,11 @@ class LoadImageData extends AbstractFixture implements OrderedFixtureInterface
             $img_blog_2 = new Image();
             $img_blog_2->setPost($em->merge($this->getReference('post-blog')));
 	    $img_blog_2->setImage('porsche-cayman-gt4-950x530-2-lg.jpg');
-            $img_blog_2->setRank(2);
+            $img_blog_2->setRank(3);
             $img_blog_3 = new Image();
             $img_blog_3->setPost($em->merge($this->getReference('post-blog')));
 	    $img_blog_3->setImage('porsche-cayman-gt4-950x530-3-lg.jpg');
-            $img_blog_3->setRank(3);
+            $img_blog_3->setRank(2);
             $img_blog_4 = new Image();
             $img_blog_4->setPost($em->merge($this->getReference('post-blog')));
 	    $img_blog_4->setImage('porsche-cayman-gt4-950x530-4-lg.jpg');
@@ -42,11 +42,11 @@ class LoadImageData extends AbstractFixture implements OrderedFixtureInterface
             $img_shop_2 = new Image();
 	    $img_shop_2->setPost($em->merge($this->getReference('post-shop')));
 	    $img_shop_2->setImage('range-rover-sport-950x530-2-lg.jpg');
-            $img_shop_2->setRank(2);
+            $img_shop_2->setRank(3);
             $img_shop_3 = new Image();
 	    $img_shop_3->setPost($em->merge($this->getReference('post-shop')));
 	    $img_shop_3->setImage('range-rover-sport-950x530-3-lg.jpg');
-            $img_shop_3->setRank(3);
+            $img_shop_3->setRank(2);
             
 	    $em->persist($img_shop_1);
             $em->persist($img_shop_2);
