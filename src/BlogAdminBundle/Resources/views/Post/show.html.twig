@@ -4,7 +4,43 @@
 
 {% block stylesheets %}{% endblock %}
 
-{% block javascripts %}{% endblock %}
+{% block javascripts %}
+<script type="text/javascript">
+$(document).ready(function() {
+        
+    $("#images-list").sortable({
+        handle : '.handle',
+        update: function () {
+            
+            var data = $(this).sortable('serialize');
+            
+            $.ajax({
+                type  : "POST",
+                url   : "{{ path('admin_post_sort-image', { 'id': entity.id }) }}",
+                data  : {
+                    images_list: data
+                },
+                beforeSend: function() {
+                    //$("#loader").show();
+                },
+                success : function(msg) {
+                    //$("#ajax_txt_content").html(msg);
+                },
+                complete : function() {
+                    //$("#loader").hide();
+                },
+                error: function(error) {
+                    alert("Error");
+                }
+                
+            });
+        }
+        
+    });
+
+});
+</script>
+{% endblock %}
 
 {% block body -%}
 <div class="container-fluid">
@@ -18,14 +54,20 @@
         {% if entity.images is empty %}
             <p>No images</p>
         {% else %}   
+            <div id="images-list">
             {% for image in entity.images %}
                 {% if image.image is empty %}
                     <p>No images</p> 
                 {% else %}
-                    <img class="img-responsive" src="{{ asset('bundles/blog/images/'~ image.image)|imagine_filter('post_img_md') }}" alt="{{ entity.title|raw }}">
-                    <br/>
+                    <div id="item-image_{{ image.id }}">
+                        <div class="text-center">
+                            <img class="img-responsive" src="{{ asset('bundles/blog/images/'~ image.image)|imagine_filter('post_img_md') }}" alt="{{ entity.title|raw }}">
+                            <a class="btn btn-default btn-xs handle"><i class="fa fa-arrows-alt"></i></a>
+                        </div><br/>
+                    </div>
                 {% endif %}
             {% endfor %}
+            </div>
         {% endif %}
         </div>
         <div class="col-md-6">

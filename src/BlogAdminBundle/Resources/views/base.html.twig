@@ -15,6 +15,7 @@
         
         <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
         <link href="{{ asset('bundles/blog/assets/css/ie10-viewport-bug-workaround.css') }}" rel="stylesheet">
+        {#<link href="{{ asset('bundles/blog/assets/css/jquery-ui.css') }}" rel="stylesheet">#}
 
         <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
         <!--[if lt IE 9]><script src="{{ asset('bundles/blog/assets/js/ie8-responsive-file-warning.js') }}"></script><![endif]-->
@@ -185,7 +186,9 @@
         ================================================== -->
         <!-- Placed at the end of the document so the pages load faster -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
         <script>window.jQuery || document.write('<script src="{{ asset('bundles/blog/assets/js/vendor/jquery.min.js') }}"><\/script>')</script>
+        <script>window.jQuery || document.write('<script src="{{ asset('bundles/blog/assets/js/vendor/jquery-ui.min.js') }}"><\/script>')</script>
         <script src="{{ asset('bundles/blog/dist/js/bootstrap.min.js') }}"></script>
         <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
         <script src="{{ asset('bundles/blog/assets/js/vendor/holder.min.js') }}"></script>

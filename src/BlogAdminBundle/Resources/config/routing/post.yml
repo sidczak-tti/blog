@@ -52,3 +52,8 @@ admin_post_up-image:
 admin_post_down-image:
     path:     /{id}/{img}/down-image
     defaults: { _controller: "BlogAdminBundle:Post:downImage" }
+    
+admin_post_sort-image:
+    path:     /{id}/sort-image
+    defaults: { _controller: "BlogAdminBundle:Post:sortImage" }
+    #methods:  [POST]

@@ -455,4 +455,24 @@ class PostController extends Controller
         
         return $this->redirect($this->generateUrl('admin_post_edit', array('id' => $id)));
     }
+    
+    public function sortImageAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        
+        if ($request->isXmlHttpRequest()) {
+            
+            parse_str($this->getRequest()->get('images_list'), $images);
+            
+            foreach ($images['item-image'] as $key => $image_id) {
+                $entity = $em->getRepository('BlogAdminBundle:Image')->find($image_id);
+                $entity->setRank($key + 1);
+                $em->persist($entity);
+            }
+            
+            $em->flush();
+        }
+        
+        return $this->redirect($this->generateUrl('admin_post_show', array('id' => $id)));
+    }
 }
