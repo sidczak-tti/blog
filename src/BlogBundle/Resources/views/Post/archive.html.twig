@@ -24,25 +24,9 @@
     <div class="row">
         <div class="col-md-8">
         {% for entity in entities %}
-            <h2><a href="{{ path('post_show', { 'id': entity.id, 'category': entity.category.slug, 'title': entity.titleslug }) }}">{{ entity.title|title|raw }}</a></h2>
-            <p>
-                <i class="fa fa-calendar"></i> <a href="#">{% if entity.publishedat %}{{ entity.publishedat|date('l, F j, Y') }}{% endif %}</a> | 
-                <i class="fa fa-user"></i> <a href="{{ path('blog_author', { 'email': entity.authoremail }) }}">{{ entity.authoremail }}</a> |
-                <i class="fa fa-share-alt"></i> <a href="{{ path('blog_category', { 'slug': entity.category.slug }) }}">{{ entity.category }}</a>
-            </p>
-            <p>
-                {{ entity.excerpt|raw|slice(0, 300) }}
-                {{ entity.excerpt|length > 300 ? '[...]' : ''}}
-                {#{{ entity.excerpt|length > 300 ? entity.excerpt|raw|slice(0,300) ~ '[...]' : entity.excerpt|raw }}#}
-            </p>
-            <a class="pull-right btn btn-primary" href="{{ path('post_show', { 'id': entity.id, 'category': entity.category.slug, 'title': entity.titleslug }) }}">Read More <i class="fa fa-angle-right"></i></a>
-            <p>Tags:
-                {% for tag in entity.tags %}
-                    <a class="btn btn-default btn-xs" href="{{ path('blog_tag', { 'slug': tag.slug }) }}">{{ tag.name }}</a>
-                {% endfor %}
-            </p>
-            <div class="clearfix"></div>
-            <hr/>
+            
+            {{ include('BlogBundle:Post:_post.html.twig') }}
+            
         {% endfor %}
         
             <div class="row">
