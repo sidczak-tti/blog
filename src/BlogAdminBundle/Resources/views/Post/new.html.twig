@@ -2,9 +2,22 @@
 
 {% block title %}{% endblock %}
 
-{% block stylesheets %}{% endblock %}
+{% block stylesheets %}
+    <link href="{{ asset('bundles/blog/css/editor/bootstrap3-wysiwyg5.css') }}" rel="stylesheet" type="text/css" media="all" />
+{% endblock %}
 
-{% block javascripts %}{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('bundles/blog/js/editor/wysihtml5-0.3.0.js') }}"></script>
+    <script src="{{ asset('bundles/blog/js/editor/bootstrap3-wysihtml5.js') }}"></script>
+    <script type="text/javascript">
+        $('.textarea-excerpt').wysihtml5({ html: true });    
+        $('.textarea-content').wysihtml5({
+            stylesheets: ["{{ asset('bundles/blog/css/editor/bootstrap3-wysiwyg5-color.css') }}"],
+            color: true,
+            html: true
+        });
+    </script>
+{% endblock %}
 
 {% form_theme form _self %}
  
@@ -77,12 +90,12 @@
                 </div>
                 <div class="form-group {% if form_errors(form.excerpt) %} has-error {% endif %}">
                     {{ form_label(form.excerpt) }}
-                    {{ form_widget(form.excerpt, { 'attr': {'class': 'form-control'} }) }}
+                    {{ form_widget(form.excerpt, { 'attr': {'class': 'form-control textarea-excerpt'} }) }}
                     {{ form_errors(form.excerpt) }}
                 </div>
                 <div class="form-group {% if form_errors(form.content) %} has-error {% endif %}">
                     {{ form_label(form.content) }} *
-                    {{ form_widget(form.content, { 'attr': {'class': 'form-control'} }) }}
+                    {{ form_widget(form.content, { 'attr': {'class': 'form-control textarea-content'} }) }}
                     {{ form_errors(form.content) }}
                 </div>
                 <div class="form-group {% if form_errors(form.author_email) %} has-error {% endif %}">
