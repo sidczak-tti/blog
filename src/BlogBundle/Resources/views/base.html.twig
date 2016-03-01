@@ -63,7 +63,11 @@
                         #}
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#">Sign in</a></li>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <li><a href="{{ path('blog_frontend_logout') }}">Log out</a></li>
+                        {% else %}
+                            <li><a href="{{ path('blog_frontend_login') }}">Sign in</a></li>
+                        {% endif %}
                     </ul>
                 </div>
 

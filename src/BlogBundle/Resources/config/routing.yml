@@ -25,3 +25,13 @@ blog_archives_page:
 blog_author:
     path:     /author/{email}/{page}
     defaults: { _controller: "BlogBundle:Post:author", page: 1 }
+    
+blog_frontend_login:
+    path:   /frontend_login
+    defaults:  { _controller: BlogBundle:Security:login }
+
+blog_frontend_login_check:
+    path:   /frontend_login_check
+
+blog_frontend_logout:
+    path:   /frontend_logout

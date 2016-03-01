@@ -5,3 +5,13 @@ blog_admin_post:
 blog_admin_homepage:
     path:     /
     defaults: { _controller: BlogAdminBundle:Start:index }
+
+blog_backend_login:
+    path:     /backend_login
+    defaults: { _controller: BlogAdminBundle:Security:login }
+
+blog_backend_login_check:
+    path:   /backend_login_check
+
+blog_backend_logout:
+    path:   /backend_logout    
