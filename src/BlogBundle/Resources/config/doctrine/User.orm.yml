@@ -12,7 +12,6 @@ BlogBundle\Entity\User:
       type: string
       length: 50
       unique: true
-      nullable: true
     email:
       type: string
       length: 50
@@ -23,6 +22,10 @@ BlogBundle\Entity\User:
     roles:
       type: json_array
       nullable: true
+    is_active:
+      type: boolean
+      options:
+        default: false
     created_at:
       type: datetime
   lifecycleCallbacks:

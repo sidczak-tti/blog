@@ -2,10 +2,12 @@
 
 namespace BlogBundle\Entity;
 
+use Symfony\Component\Security\Core\User\UserInterface;
+
 /**
  * User
  */
-class User
+class User implements UserInterface, \Serializable
 {
     /**
      * @var integer
@@ -31,6 +33,11 @@ class User
      * @var array
      */
     private $roles;
+    
+    /**
+     * @var boolean
+     */
+    private $is_active = false;
 
     /**
      * @var \DateTime
@@ -143,6 +150,35 @@ class User
     {
         return $this->roles;
     }
+    
+    public function getSalt()
+    {
+        return null;
+    }
+    
+    /**
+     * Set isActive
+     *
+     * @param boolean $isActive
+     *
+     * @return User
+     */
+    public function setIsActive($isActive)
+    {
+        $this->is_active = $isActive;
+
+        return $this;
+    }
+
+    /**
+     * Get isActive
+     *
+     * @return boolean
+     */
+    public function getIsActive()
+    {
+        return $this->is_active;
+    }
 
     /**
      * Set createdAt
@@ -174,5 +210,33 @@ class User
     {
         // Add your code here
         $this->created_at = new \DateTime();
+    }
+    
+    public function eraseCredentials()
+    {
+    }
+
+    /** @see \Serializable::serialize() */
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->username,
+            $this->password,
+            // see section on salt below
+            // $this->salt,
+        ));
+    }
+
+    /** @see \Serializable::unserialize() */
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->username,
+            $this->password,
+            // see section on salt below
+            // $this->salt
+        ) = unserialize($serialized);
     }
 }

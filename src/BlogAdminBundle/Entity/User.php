@@ -31,6 +31,11 @@ class User
      * @var array
      */
     private $roles;
+    
+    /**
+     * @var boolean
+     */
+    private $is_active = false;
 
     /**
      * @var \DateTime
@@ -144,6 +149,30 @@ class User
         return $this->roles;
     }
 
+    /**
+     * Set isActive
+     *
+     * @param boolean $isActive
+     *
+     * @return User
+     */
+    public function setIsActive($isActive)
+    {
+        $this->is_active = $isActive;
+
+        return $this;
+    }
+
+    /**
+     * Get isActive
+     *
+     * @return boolean
+     */
+    public function getIsActive()
+    {
+        return $this->is_active;
+    }
+    
     /**
      * Set createdAt
      *

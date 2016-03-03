@@ -20,7 +20,8 @@
         "doctrine/doctrine-fixtures-bundle": "dev-master",
         "doctrine/data-fixtures": "dev-master",
         "beberlei/DoctrineExtensions": "dev-master",
-        "liip/imagine-bundle": "^1.4"
+        "liip/imagine-bundle": "^1.4",
+        "ircmaxell/password-compat": "~1.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3",
