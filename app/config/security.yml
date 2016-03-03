@@ -3,6 +3,7 @@
 security:
     encoders:
         Symfony\Component\Security\Core\User\User: plaintext
+        #BlogBundle\Entity\User: plaintext #Bez szyfrowania hasła
         BlogBundle\Entity\User: bcrypt
         
     role_hierarchy:

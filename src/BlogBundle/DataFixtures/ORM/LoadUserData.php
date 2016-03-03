@@ -28,6 +28,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $johnUser = new User();
         $johnUser->setUsername('john_user');
         $johnUser->setEmail('john_user@symfony.com');
+        #$johnUser->setPassword('kitten');
         $encodedPassword = $passwordEncoder->encodePassword($johnUser, 'kitten');
         $johnUser->setPassword($encodedPassword);
         $johnUser->setRoles(array('ROLE_USER'));
@@ -35,6 +36,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $annaAdmin = new User();
         $annaAdmin->setUsername('anna_admin');
         $annaAdmin->setEmail('anna_admin@symfony.com');
+        #$annaAdmin->setPassword('kitten');
         $encodedPassword = $passwordEncoder->encodePassword($annaAdmin, 'kitten');
         $annaAdmin->setPassword($encodedPassword);
         $annaAdmin->setRoles(array('ROLE_ADMIN'));
