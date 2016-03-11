@@ -2,7 +2,14 @@
 
 namespace BlogBundle\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+
 use Symfony\Component\Security\Core\User\UserInterface;
+
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * User
@@ -28,6 +35,8 @@ class User implements UserInterface, \Serializable
      * @var string
      */
     private $password;
+    
+    private $plainPassword;
 
     /**
      * @var array
@@ -125,6 +134,18 @@ class User implements UserInterface, \Serializable
     public function getPassword()
     {
         return $this->password;
+    }
+    
+    public function setPlainPassword($password)
+    {
+        $this->plainPassword = $password;
+        
+        return $this;
+    }
+    
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
     }
 
     /**
@@ -238,5 +259,24 @@ class User implements UserInterface, \Serializable
             // see section on salt below
             // $this->salt
         ) = unserialize($serialized);
+    }
+    
+    public static function loadValidatorMetadata(ClassMetadata $metadata)
+    {
+        $metadata->addPropertyConstraint('username', new NotBlank());
+        $metadata->addConstraint(new UniqueEntity(array(
+            'fields'  => 'username',
+        )));
+        
+        $metadata->addPropertyConstraint('email', new NotBlank());
+        $metadata->addConstraint(new UniqueEntity(array(
+            'fields'  => 'email',
+        )));
+        
+        $metadata->addPropertyConstraint('email', new Assert\Email(array(
+            'message' => 'The email "{{ value }}" is not a valid email.',
+            'checkMX' => true,
+        )));
+        $metadata->addPropertyConstraint('plainPassword', new NotBlank());
     }
 }

@@ -35,3 +35,7 @@ blog_frontend_login_check:
 
 blog_frontend_logout:
     path:   /frontend_logout
+    
+blog_user_registration:
+    path:     /register
+    defaults: { _controller: BlogBundle:Security:register }
