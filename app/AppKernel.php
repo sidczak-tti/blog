@@ -21,6 +21,7 @@ class AppKernel extends Kernel
             new BlogBundle\BlogBundle(),
             new BlogAdminBundle\BlogAdminBundle(),
             new Liip\ImagineBundle\LiipImagineBundle(),
+            new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {

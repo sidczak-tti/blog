@@ -22,7 +22,8 @@
         "beberlei/DoctrineExtensions": "dev-master",
         "liip/imagine-bundle": "^1.4",
         "ircmaxell/password-compat": "~1.0",
-        "friendsofsymfony/user-bundle": "~2.0@dev"
+        "friendsofsymfony/user-bundle": "~2.0@dev",
+        "egeloen/ckeditor-bundle": "^4.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3",
